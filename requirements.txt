@@ -1,0 +1,11 @@
+certifi
+folium
+geojson
+geopy
+jinja2
+json
+openrouteservice
+os
+pandas
+python-dotenv
+ssl
