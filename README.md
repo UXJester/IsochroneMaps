@@ -11,6 +11,14 @@ Isochrone Maps is a Python-based project designed to generate isochrone maps, wh
 
 - Python 3.x installed on your system.
 - Visual Studio Code with the Python extension installed.
+- An API key from [OpenRouteService](https://openrouteservice.org/).
+
+### Obtaining an OpenRouteService API Key
+
+1. Go to [OpenRouteService](https://openrouteservice.org/).
+2. Sign up for a free account or log in if you already have one.
+3. Navigate to the "API Keys" section in your account dashboard.
+4. Create a new API key and copy it for later use.
 
 ## Setup
 
