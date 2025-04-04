@@ -51,7 +51,7 @@ for index, row in df.iterrows():
     )  # OpenRouteService expects [longitude, latitude]
 
 
-# Function to generate isochrones for a single city
+# Function to generate isochrones
 def generate_isochrone(client, longitude, latitude, city_name):
     try:
         isochrone_result = isochrones(
