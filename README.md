@@ -103,7 +103,9 @@ Individual `[city_name]_isochroes.geojson` can be used to add additional layers 
 1. Run `maps.py` and observe the maps generated are saved to `/maps/*_map.html`
 2. Generated maps will display an OpenStreetMap with zoom, draw, and layer controls that visualize isochrones, locations, and map scale.
 
-[//]: <TODO: Add Map Image or Iframe>
+### Demo Map
+
+<iframe src="https://uxjester.github.io/IsochroneMaps/poi_map.html" width="600" height="400" style="border:none;"></iframe>
 
 _Note:_ `maps.py` can be updated to use different map tiles, additional layers, marker icons, etc. See documentation for [Folium](https://python-visualization.github.io/folium/latest/user_guide.html) and [Leafletjs](https://leafletjs.com/reference.html) for more information. Automated configuration is not supported at this time.
 
