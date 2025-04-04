@@ -1,8 +1,11 @@
-from geopy.geocoders import Nominatim
-import pandas as pd
-import ssl
-import certifi
+# Standard library imports
 import os
+import ssl
+
+# Third-party imports
+import certifi
+import pandas as pd
+from geopy.geocoders import Nominatim
 
 # Create a secure SSL context
 ssl_context = ssl.create_default_context(cafile=certifi.where())
@@ -19,7 +22,7 @@ def load_data(file_path, dtype=None):
         raise FileNotFoundError(f"{file_path} not found.")
 
 
-# Function to geocode a single row
+# Function to geocode a location
 def geocode(address, city, state, zip_code):
     # Build the full address dynamically, skipping empty fields
     full_address = ", ".join(filter(None, [address, city, state, zip_code]))
@@ -37,16 +40,19 @@ def geocode(address, city, state, zip_code):
 
 
 # Function to process geocoding for a given DataFrame
+# Creates a new DataFrame with geocoded results and saves it to a CSV file
+# Accounts for existing records and updates only those that need it
 def process_geocoding(df, output_file, columns_to_geocode):
     # Check if the output file already exists
     if os.path.exists(output_file):
         existing_df = pd.read_csv(output_file, dtype={"Zip": str})
         # Clear the error for rows with valid latitude and longitude
+        # This assumes that the existing DataFrame has columns named "Latitude", "Longitude", and "Error"
         existing_df.loc[
             existing_df["Latitude"].notna() & existing_df["Longitude"].notna(), "Error"
         ] = None
 
-        # Identify rows that need to be geocoded (those with errors or missing coordinates)
+        # Identify rows that need to be updated (those with errors or missing coordinates)
         rows_to_process = existing_df[
             existing_df["Error"].notna()
             | existing_df["Latitude"].isna()
@@ -75,7 +81,7 @@ def process_geocoding(df, output_file, columns_to_geocode):
     if "Error" not in df_to_geocode.columns:
         df_to_geocode["Error"] = None
 
-    # Apply geocoding only to rows that need updates
+    # Apply geocoding only to locations that need updates
     def safe_geocode(row):
         try:
             # Dynamically include Address if it exists in columns_to_geocode
