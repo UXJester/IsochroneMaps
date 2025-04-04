@@ -2,9 +2,7 @@ import folium
 import geojson
 import os
 import pandas as pd
-from folium import JsCode, Element
-from folium.plugins import Draw, MeasureControl
-from folium.plugins import GroupedLayerControl
+from folium.plugins import Draw
 from jinja2 import Template
 from math import radians, degrees, sin, cos, atan2, sqrt
 
