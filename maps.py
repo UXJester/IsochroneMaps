@@ -1,10 +1,13 @@
+# Standard library imports
 import os
+from math import atan2, cos, degrees, radians, sin, sqrt
+
+# Third-party imports
+import folium
 import geojson
 import pandas as pd
-import folium
 from folium.plugins import Draw
 from jinja2 import Template
-from math import radians, degrees, sin, cos, atan2, sqrt
 
 # Load isochrone data from isochrones.geojson
 if not os.path.exists("data/isochrones/isochrones.geojson"):
