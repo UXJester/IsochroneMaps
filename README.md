@@ -105,7 +105,7 @@ Individual `[city_name]_isochroes.geojson` can be used to add additional layers 
 
 ### Demo Map
 
-<iframe src="https://uxjester.github.io/IsochroneMaps/poi_map.html" width="600" height="400" style="border:none;"></iframe>
+[View the POI Map](https://uxjester.github.io/IsochroneMaps/poi_map.html)
 
 _Note:_ `maps.py` can be updated to use different map tiles, additional layers, marker icons, etc. See documentation for [Folium](https://python-visualization.github.io/folium/latest/user_guide.html) and [Leafletjs](https://leafletjs.com/reference.html) for more information. Automated configuration is not supported at this time.
 
