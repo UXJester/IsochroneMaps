@@ -1,12 +1,13 @@
+# Standard library imports
+import os
+from math import atan2, cos, degrees, radians, sin, sqrt
+
+# Third-party imports
 import folium
 import geojson
-import os
 import pandas as pd
-from folium import JsCode, Element
-from folium.plugins import Draw, MeasureControl
-from folium.plugins import GroupedLayerControl
+from folium.plugins import Draw
 from jinja2 import Template
-from math import radians, degrees, sin, cos, atan2, sqrt
 
 # Load isochrone data from isochrones.geojson
 if not os.path.exists("data/isochrones/isochrones.geojson"):
@@ -51,7 +52,7 @@ def calculate_geographic_midpoint(coords):
 if "Latitude" in cities_df.columns and "Longitude" in cities_df.columns:
     city_coords = cities_df.dropna(subset=["Latitude", "Longitude"])
     if city_coords.empty:
-        raise ValueError("No valid chapter coordinates found.")
+        raise ValueError("No valid city coordinates found.")
     coords = list(zip(city_coords["Latitude"], city_coords["Longitude"]))
     map_center = calculate_geographic_midpoint(coords)
 else:
@@ -60,36 +61,34 @@ else:
 # Define Colors
 colors = ["orange", "red", "blue", "green", "purple", "gray"]
 
-# Map chapters to colors
+# Create a dictionary to map city names to colors
 city_colors = {}
+
+# Dynamically assign unique colors to city isochrones
 city = {
     feature["properties"].get("city", "Unknown")
     for feature in isochrones_data["features"]
 }
 for idx, city in enumerate(city):
-    city_colors[city] = colors[
-        idx % len(colors)
-    ]  # Assign a unique color to each chapter
+    city_colors[city] = colors[idx % len(colors)]
 
 
 # Function to create a map with layers
 def create_map(include_poi=False):
     m = folium.Map(location=map_center, zoom_start=8, control_scale=True)
 
-    # Create feature groups for layers
+    # Define layers
     draw_layer = folium.FeatureGroup(name="Draw Layer", show=True)
     isochrones_layer = folium.FeatureGroup(name="Isochrones", show=True)
     cities_layer = folium.FeatureGroup(name="Cities", show=True)
     poi_layer = folium.FeatureGroup(name="Points of Interest", show=include_poi)
 
-    # TODO: Add layers for different time intervals
+    # TODO: Add layers for different time intervals layers below are placeholders and not used
     thirty_min_layer = folium.FeatureGroup(name="30 Minutes", show=False)
     sixty_min_layer = folium.FeatureGroup(name="60 Minutes", show=False)
 
-    # Add isochrones to the isochrones layer
-    for feature in reversed(
-        isochrones_data["features"]
-    ):  # Reverse to render shorter isochrones on top
+    # Add isochrones to map layer. Reversed to render shorter isochrones on top to prevent overlapping
+    for feature in reversed(isochrones_data["features"]):
         city_name = feature["properties"].get("city", "Unknown")
         value = feature["properties"].get("value", 0)
         label = f"{value // 60} minutes" if value else "Unknown"
@@ -109,9 +108,9 @@ def create_map(include_poi=False):
             tooltip=folium.Tooltip(f"Isochrone for {city_name}: {label}"),
         ).add_to(isochrones_layer)
 
-        # TODO : Add isochrones to specific layers based on time
+        # TODO : Add individual isochrones to specific layers based on time to better organize and visualize
 
-    # Add city markers and labels to the cities layer
+    # Add city markers and labels
     for _, row in city_coords.iterrows():
         city_name = row["City"] if pd.notna(row["City"]) else "Unknown"
 
@@ -122,7 +121,7 @@ def create_map(include_poi=False):
         latitude = row["Latitude"]
         longitude = row["Longitude"]
 
-        # Add a marker for the city
+        # Add City Markers with popup and tooltip
         folium.Marker(
             location=[latitude, longitude],
             popup=folium.Popup(f"<b>{city_name}</b>", max_width=300),
@@ -132,7 +131,7 @@ def create_map(include_poi=False):
             ),
         ).add_to(cities_layer)
 
-        # Add a label for the city
+        # Add a custom label
         folium.Marker(
             location=[latitude, longitude],
             icon=folium.DivIcon(
@@ -144,7 +143,7 @@ def create_map(include_poi=False):
             ),
         ).add_to(cities_layer)
 
-    # Add poi markers to the poi layer (if enabled)
+    # Add poi markers (if enabled)
     if include_poi:
         geocoded_file = "data/location/geocoded_poi.csv"
         if not os.path.exists(geocoded_file):
@@ -161,19 +160,18 @@ def create_map(include_poi=False):
 
             if latitude is None or longitude is None:
                 print(
-                    f"Error: Missing coordinates for member '{poi_name}'. Skipping..."
+                    f"Error: Missing coordinates for Point of Interest '{poi_name}'. Skipping..."
                 )
                 continue
 
+            # Add POI Markers with popup and tooltip. To use a custom icon use folium.CustomIcon
             folium.Marker(
                 location=[latitude, longitude],
                 popup=folium.Popup(
                     f"<b>{poi_name}</b><br>City: {poi_city}",
                     max_width=300,
                 ),
-                icon=folium.Icon(
-                    color="blue", icon="camera"
-                ),  # Use folium.CustomIcon for custom icons
+                icon=folium.Icon(color="blue", icon="camera"),
                 tooltip=folium.Tooltip(
                     f"{poi_name}",
                     sticky=True,
@@ -182,14 +180,14 @@ def create_map(include_poi=False):
                 ),
             ).add_to(poi_layer)
 
-    # Add layers to the map
+    # Add layers to the map. Draw layer is added to allow user to draw on the map and edit drawn features
     draw_layer.add_to(m)
     isochrones_layer.add_to(m)
     cities_layer.add_to(m)
     if include_poi:
         poi_layer.add_to(m)
 
-    # Add layer control and draw tools to toggle layers
+    # Add layer control to toggle layers
     folium.LayerControl(collapsed=True).add_to(m)
 
     # Define Draw Options
@@ -199,7 +197,7 @@ def create_map(include_poi=False):
         "nauticalmiles": False,  # Disable nautical miles
     }
 
-    # Add Draw plugin with event listener
+    # Add Draw tools
     Draw(
         export=True,
         show_geometry_on_click=False,
@@ -216,13 +214,22 @@ def create_map(include_poi=False):
         },
     ).add_to(m)
 
+    # Add a custom script to configure the Draw plugin
     el = folium.MacroElement().add_to(m)
+
+    """
+    This template calculates the distance and area of drawn shapes using the Haversine formula
+    and displays the results in tooltips. It also handles the conversion of units to miles and acres.
+    This is done Because L.GeometryUtil.geodesicLength() and .length are not available in Foliums Leaflet implementation
+    Conversion factors: multiply by these to convert to desired units
+    meters to miles = 1 / 1609.34 ≈ 0.000621371
+    m² (sq meters) to acres = 1 / 4046.8564224 ≈ 0.000247105
+    Reference: https://en.wikipedia.org/wiki/Haversine_formula
+    """
     el._template = Template(
         """
     {% macro script(this, kwargs) %}
-      // Haversine formula to calculate distance between two lat/lng points
-      // Because L.GeometryUtil.geodesicLength() is not available in Leaflet
-      // Reference: https://en.wikipedia.org/wiki/Haversine_formula
+      // Haversine formula
       function haversineDistance(latlngs) {
         const R = 6371000; // Radius of the Earth in meters
         let totalDistance = 0;
@@ -249,10 +256,8 @@ def create_map(include_poi=False):
         const layer = e.layer,
               type = e.layerType;
 
-        // Conversion factors: multiply by these to convert to desired units
-        // meters to miles = 1 / 1609.34 ≈ 0.000621371
-        // m² (sq meters) to acres = 1 / 4046.8564224 ≈ 0.000247105
         if (type === 'polyline') {
+            // Calculate and display length in miles using haversineDistance function
             const latlngs = layer.getLatLngs();
             const length = haversineDistance(latlngs);
             const lengthInMiles = (length * 0.000621371).toFixed(2);  // Convert meters to miles
@@ -289,7 +294,7 @@ def create_map(include_poi=False):
             });
         }
 
-        // Add the layer to the map
+        // Add the layer to the drawing layer
         {{ this._parent.get_name() }}.addLayer(layer);
     });
 
@@ -297,17 +302,22 @@ def create_map(include_poi=False):
     """
     )
 
-    # TODO: Add grouped layer control for better organization
+    # TODO: Add grouped or tree layer control for better organization
 
     return m
 
 
-# Generate the map without members
+# Generate Maps using create_map function. Additional maps can be created by calling the function with different parameters
+# Create maps directory if it doesn't exist
+if not os.path.exists("maps"):
+    os.makedirs("maps")
+
+# Generate the map without Points of Interest
 map_without_poi = create_map(include_poi=False)
 map_without_poi.save("maps/city_isochrone_map.html")
 print("Map without poi saved as 'city_isochrone_map.html'.")
 
-# Generate the map with members
+# Generate the map with Points of Interest
 map_with_poi = create_map(include_poi=True)
 map_with_poi.save("maps/poi_map.html")
-print("Map with members saved as 'poi_map.html'.")
+print("Map with Points of Interest saved as 'poi_map.html'.")

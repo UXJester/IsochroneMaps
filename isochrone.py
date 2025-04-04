@@ -1,11 +1,14 @@
-from dotenv import load_dotenv
-import os
-import openrouteservice
-from openrouteservice.isochrones import isochrones
-import pandas as pd
+# Standard library imports
 import json
+import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from time import sleep
+
+# Third-party imports
+import pandas as pd
+from dotenv import load_dotenv
+import openrouteservice
+from openrouteservice.isochrones import isochrones
 
 # Load environment variables from .env file
 load_dotenv()
@@ -48,7 +51,7 @@ for index, row in df.iterrows():
     )  # OpenRouteService expects [longitude, latitude]
 
 
-# Function to generate isochrones for a single city
+# Function to generate isochrones
 def generate_isochrone(client, longitude, latitude, city_name):
     try:
         isochrone_result = isochrones(
