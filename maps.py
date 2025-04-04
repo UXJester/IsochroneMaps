@@ -51,7 +51,7 @@ def calculate_geographic_midpoint(coords):
 if "Latitude" in cities_df.columns and "Longitude" in cities_df.columns:
     city_coords = cities_df.dropna(subset=["Latitude", "Longitude"])
     if city_coords.empty:
-        raise ValueError("No valid chapter coordinates found.")
+        raise ValueError("No valid city coordinates found.")
     coords = list(zip(city_coords["Latitude"], city_coords["Longitude"]))
     map_center = calculate_geographic_midpoint(coords)
 else:
@@ -60,16 +60,16 @@ else:
 # Define Colors
 colors = ["orange", "red", "blue", "green", "purple", "gray"]
 
-# Map chapters to colors
+# Create a dictionary to map city names to colors
 city_colors = {}
+
+# Dynamically assign unique colors to city isochrones
 city = {
     feature["properties"].get("city", "Unknown")
     for feature in isochrones_data["features"]
 }
 for idx, city in enumerate(city):
-    city_colors[city] = colors[
-        idx % len(colors)
-    ]  # Assign a unique color to each chapter
+    city_colors[city] = colors[idx % len(colors)]
 
 
 # Function to create a map with layers
@@ -161,7 +161,7 @@ def create_map(include_poi=False):
 
             if latitude is None or longitude is None:
                 print(
-                    f"Error: Missing coordinates for member '{poi_name}'. Skipping..."
+                    f"Error: Missing coordinates for Point of Interest '{poi_name}'. Skipping..."
                 )
                 continue
 
@@ -302,12 +302,12 @@ def create_map(include_poi=False):
     return m
 
 
-# Generate the map without members
+# Generate the map without Points of Interest
 map_without_poi = create_map(include_poi=False)
 map_without_poi.save("maps/city_isochrone_map.html")
 print("Map without poi saved as 'city_isochrone_map.html'.")
 
-# Generate the map with members
+# Generate the map with Points of Interest
 map_with_poi = create_map(include_poi=True)
 map_with_poi.save("maps/poi_map.html")
-print("Map with members saved as 'poi_map.html'.")
+print("Map with Points of Interest saved as 'poi_map.html'.")

@@ -148,13 +148,13 @@ def process_geocoding(df, output_file, columns_to_geocode):
     print(f"Geocoding complete. Updated file saved to {output_file}")
 
 
-# Process chapters.csv
-chapters_file = "data/location/cities.csv"
-chapters_output = "data/location/geocoded_cities.csv"
-chapters_df = load_data(chapters_file, dtype={"Zip": str})
+# Process cities.csv
+cities_file = "data/location/cities.csv"
+cities_output = "data/location/geocoded_cities.csv"
+cities_df = load_data(cities_file, dtype={"Zip": str})
 process_geocoding(
-    chapters_df,
-    chapters_output,
+    cities_df,
+    cities_output,
     columns_to_geocode={
         "City": "City",
         "State": "State",
@@ -162,13 +162,13 @@ process_geocoding(
     },  # No "Address" key here
 )
 
-# Process members.csv
-members_file = "data/location/poi.csv"
-members_output = "data/location/geocoded_poi.csv"
-members_df = load_data(members_file, dtype={"Zip": str})
+# Process poi.csv
+poi_file = "data/location/poi.csv"
+poi_output = "data/location/geocoded_poi.csv"
+poi_df = load_data(poi_file, dtype={"Zip": str})
 process_geocoding(
-    members_df,
-    members_output,
+    poi_df,
+    poi_output,
     columns_to_geocode={
         "Address": "Address",
         "City": "City",
