@@ -1,26 +1,35 @@
-# Byte-compiled / optimized / DLL files
+# Python-related
 __pycache__/
 *.py[cod]
 *.pyo
-
-# Virtual environment
-venv/
-.venv/
+*.pyd
+*.env
+*.venv
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
 
 # Environment variables
 .env
 
-# Logs
-*.log
-
 # Data files
-data/location/geocoded_cities.csv
-data/location/geocoded_poi.csv
-data/isochrones/*_isochrones.geojson
+data/
+maps/
 
-# VS Code settings
-.vscode/
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
 
-# OS-specific files
+# OS-specific
 .DS_Store
 Thumbs.db
+
+# IDE-specific
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Certificates
+*.pem
