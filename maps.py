@@ -217,15 +217,13 @@ def create_map(include_poi=False):
     # Add a custom script to configure the Draw plugin
     el = folium.MacroElement().add_to(m)
 
-    """
-    This template calculates the distance and area of drawn shapes using the Haversine formula
-    and displays the results in tooltips. It also handles the conversion of units to miles and acres.
-    This is done Because L.GeometryUtil.geodesicLength() and .length are not available in Foliums Leaflet implementation
-    Conversion factors: multiply by these to convert to desired units
-    meters to miles = 1 / 1609.34 ≈ 0.000621371
-    m² (sq meters) to acres = 1 / 4046.8564224 ≈ 0.000247105
-    Reference: https://en.wikipedia.org/wiki/Haversine_formula
-    """
+    # This template calculates the distance and area of drawn shapes using the Haversine formula
+    # and displays the results in tooltips. It also handles the conversion of units to miles and acres.
+    # This is done Because L.GeometryUtil.geodesicLength() and .length are not available in Foliums Leaflet implementation
+    # Conversion factors: multiply by these to convert to desired units
+    # meters to miles = 1 / 1609.34 ≈ 0.000621371
+    # m² (sq meters) to acres = 1 / 4046.8564224 ≈ 0.000247105
+    # Reference: https://en.wikipedia.org/wiki/Haversine_formula
     el._template = Template(
         """
     {% macro script(this, kwargs) %}
@@ -304,6 +302,160 @@ def create_map(include_poi=False):
 
     # TODO: Add grouped or tree layer control for better organization
 
+    # Add a custom script to configure the add isochrone button
+    isochrone_button = folium.MacroElement().add_to(m)
+
+    # This template adds a button to the map that allows users to generate isochrones by clicking on the map.
+    # It also handles the display of tooltips with latitude and longitude coordinates.
+    # The button is styled and positioned on the map, and it includes functionality to disable marker popups
+    # and tooltips while the isochrone mode is active.
+    # The script also includes error handling for the isochrone generation process.
+    # The button is removed when the Escape key is pressed, and the tooltip is removed after the map is clicked.
+    isochrone_button._template = Template(
+        """
+    {% macro script(this, kwargs) %}
+        // Initialize Layer Control to dynamically add layers
+        let isIsochroneMode = false; // Flag to track isochrone mode
+        let layerControl = null; // Do not add layer control initially
+
+        // Add a custom button to the map
+        const button = L.control({ position: 'topright' });
+        button.onAdd = function (map) {
+          const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+          div.innerHTML = '<button id="isochrone-btn" style="background-color: white; border: none; padding: 5px; cursor: pointer;">Add Isochrone</button>';
+          div.style.backgroundColor = 'white';
+          div.style.width = 'auto';
+          div.style.height = 'auto';
+          return div;
+        };
+        button.addTo({{ this._parent.get_name() }});
+
+        // Handle button click
+        document.getElementById('isochrone-btn').addEventListener('click', function (event) {
+          event.stopPropagation(); // Prevent the button click from propagating to the map
+          console.log('Add Isochrone button clicked');
+
+          isIsochroneMode = true; // Enable isochrone mode
+
+          // Disable marker popups and tooltips
+          {{ this._parent.get_name() }}.eachLayer(function (layer) {
+            if (layer instanceof L.Marker) {
+              layer.off('click'); // Disable marker click events
+            }
+          });
+
+          let tooltip = L.tooltip({
+            permanent: false,
+            direction: 'right',
+            offset: [12, 0]
+          });
+
+          // Add a mousemove listener to the map
+          function onMouseMove(e) {
+            const lat = e.latlng.lat.toFixed(6);
+            const lng = e.latlng.lng.toFixed(6);
+            tooltip.setLatLng(e.latlng).setContent(`Lat: ${lat}, Lng: ${lng}<br>Click Here`).addTo({{ this._parent.get_name() }});
+          }
+
+          {{ this._parent.get_name() }}.on('mousemove', onMouseMove);
+
+          // Enable map click listener
+          function onMapClick(e) {
+            const lat = e.latlng.lat;
+            const lng = e.latlng.lng;
+
+            console.log(`Map clicked at latitude: ${lat}, longitude: ${lng}`);
+
+            // Create a new feature group for the circle
+            const isochroneLayer = L.featureGroup().addTo({{ this._parent.get_name() }});
+            const inputName = prompt("Enter a name for the isochrone layer:", "Isochrone");
+            const layerName = `${inputName} at (${lat.toFixed(6)}, ${lng.toFixed(6)})`;
+
+            // Add layer control to the map if it doesn't exist
+            if (!layerControl) {
+              layerControl = L.control.layers(null, {}, { collapsed: false }).addTo({{ this._parent.get_name() }});
+              const layerControlName = prompt("Enter a name for the layer control:", "User Generated Layers");
+              const title = document.createElement('div');
+              title.style = 'font-weight: bold; font-size: 14px; margin-bottom: 5px; border-bottom: 1px solid #ccc;';
+              title.innerHTML = layerControlName;
+              layerControl.getContainer().insertBefore(title, layerControl.getContainer().firstChild);
+            }
+
+            // Add the new layer to the layer control
+            layerControl.addOverlay(isochroneLayer, layerName);
+
+            // Call your backend API to generate the isochrone
+            fetch(`/generate_isochrone?lat=${lat}&lng=${lng}&time=1800`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Server error: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (!data || !data.features) {
+                        throw new Error("Invalid GeoJSON object.");
+                    }
+                    const isochronePolygon = L.geoJSON(data, {
+                        style: {
+                            color: 'blue',
+                            weight: 2,
+                            fillOpacity: 0.4
+                        }
+                    });
+
+                    isochronePolygon.addTo(isochroneLayer);
+                    // isochroneLayer.addTo({{ this._parent.get_name() }});
+                    isochronePolygon.bindTooltip(`Isochrone for ${layerName}`, {
+                        permanent: false,
+                        direction: 'top',
+                        offset: [0, -10]
+                    });
+                })
+                .catch(error => {
+                    console.error("Error generating isochrone:", error);
+                    alert(`Failed to generate isochrone: ${error.message}`);
+                });
+
+            // Remove the tooltip and mousemove listener after the map is clicked
+            cleanup();
+          }
+
+          {{ this._parent.get_name() }}.once('click', onMapClick);
+
+          // End the event when the Escape key is pressed
+          function onKeyDown(e) {
+            if (e.key === 'Escape') {
+              console.log('Escape key pressed, ending isochrone event');
+              cleanup();
+            }
+          }
+
+          document.addEventListener('keydown', onKeyDown);
+
+          // Cleanup function to remove all listeners and the tooltip
+          function cleanup() {
+            isIsochroneMode = false; // Disable isochrone mode
+
+            // Re-enable marker popups and tooltips
+            {{ this._parent.get_name() }}.eachLayer(function (layer) {
+              if (layer instanceof L.Marker) {
+                layer.on('click', function (e) {
+                  layer.openPopup(); // Re-enable marker click events
+                });
+              }
+            });
+
+            {{ this._parent.get_name() }}.off('mousemove', onMouseMove);
+            {{ this._parent.get_name() }}.off('click', onMapClick);
+            {{ this._parent.get_name() }}.removeLayer(tooltip);
+            document.removeEventListener('keydown', onKeyDown);
+          }
+        });
+    {% endmacro %}
+    """
+    )
+
     return m
 
 
@@ -311,6 +463,11 @@ def create_map(include_poi=False):
 # Create maps directory if it doesn't exist
 if not os.path.exists("maps"):
     os.makedirs("maps")
+
+# Generate test map to test JS generated by maps.py
+# map_without_members = create_map(include_members=False)
+# map_without_members.save("maps/test_gen.html")
+# print("Map without members saved as 'test_gen.html'.")
 
 # Generate the map without Points of Interest
 map_without_poi = create_map(include_poi=False)
