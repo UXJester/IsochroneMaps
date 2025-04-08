@@ -477,4 +477,5 @@ print("Map without poi saved as 'city_isochrone_map.html'.")
 # Generate the map with Points of Interest
 map_with_poi = create_map(include_poi=True)
 map_with_poi.save("maps/poi_map.html")
+map_with_poi.save("docs/poi_map.html")
 print("Map with Points of Interest saved as 'poi_map.html'.")
