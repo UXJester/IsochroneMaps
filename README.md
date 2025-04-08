@@ -22,6 +22,8 @@ Isochrone Maps is a Python-based project designed to generate isochrone maps, wh
 
 ## Setup
 
+Setup can be preformed manually using the steps below, or can be executed by running `python3 setup_env.py` after cloning Step 1
+
 1. Clone the repository:
 
    ```bash
