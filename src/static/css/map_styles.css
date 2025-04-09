@@ -1,0 +1,14 @@
+.custom-tooltip {
+  background-color: black;
+  border: 1px solid #000;
+  border-radius: 5px;
+  color: white;
+  font-size: 12px;
+  padding: 5px;
+  text-align: center;
+}
+
+.custom-tooltip::before {
+  border-top-color: #000;
+  margin-left: -5px;
+}

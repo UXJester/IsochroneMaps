@@ -1,39 +1,27 @@
 # Standard library imports
+import sys
 import os
 import webbrowser
+
+# Add the src directory to the Python path
+sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
+
+# Local imports
+from config import MAPS
 
 # Third-party imports
 import requests
 import certifi
-import geojson
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from jsonschema import validate, ValidationError
 
-# GeoJSON schema for validation
-GEOJSON_SCHEMA = {
-    "type": "object",
-    "properties": {
-        "type": {"type": "string"},
-        "features": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "type": {"type": "string"},
-                    "geometry": {"type": "object"},
-                    "properties": {"type": "object"},
-                },
-                "required": ["type", "geometry", "properties"],
-            },
-        },
-    },
-    "required": ["type", "features"],
-}
+# Import the GeoJSON schema from the schema module
+from schema.geojson_schema import GEOJSON_SCHEMA
 
+# Flask app setup
 app = Flask(__name__)
-
 CORS(app)
 
 # Load environment variables from .env file
@@ -55,7 +43,7 @@ def hello_world():
 @app.route("/maps/<path:filename>")
 def maps(filename):
     # Serve any file from the "maps" directory
-    return send_from_directory("maps", filename)
+    return send_from_directory(MAPS, filename)
 
 
 @app.route("/generate_isochrone", methods=["GET"])
@@ -99,5 +87,5 @@ def generate_isochrone():
 
 
 if __name__ == "__main__":
-    webbrowser.open("http://localhost:8000")
-    app.run(debug=True, host="localhost", port=8000)
+    webbrowser.open("http://localhost:3000")
+    app.run(debug=True, host="localhost", port=3000)
