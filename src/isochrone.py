@@ -1,6 +1,8 @@
 # Standard library imports
 import json
 import os
+import sys
+import glob
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from time import sleep
 
@@ -9,6 +11,12 @@ import pandas as pd
 from dotenv import load_dotenv
 import openrouteservice
 from openrouteservice.isochrones import isochrones
+
+# Add the root directory to the Python path
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+# Local application imports
+from config import ISOCHRONES, LOCATIONS
 
 # Load environment variables from .env file
 load_dotenv()
@@ -23,8 +31,34 @@ if not api_key:
 # Initialize the client with the API key
 client = openrouteservice.Client(key=api_key)
 
+# Check if any files exist in the ISOCHRONES folder
+if os.path.exists(ISOCHRONES):
+    # Use glob to list all files in the folder, ignoring hidden files
+    existing_files = [
+        f
+        for f in glob.glob(f"{ISOCHRONES}/*")
+        if os.path.isfile(f) and not os.path.basename(f).startswith(".")
+    ]
+    if existing_files:
+        print(f"Existing files found in the '{ISOCHRONES}' folder:")
+        for file in existing_files:
+            print(f" - {os.path.basename(file)}")
+        confirm = (
+            input(
+                "Do you want to generate new isochrones and potentially overwrite existing files? (y/n): "
+            )
+            .strip()
+            .lower()
+        )
+        if confirm != "y":
+            print("Aborting isochrone generation.")
+            exit(0)
+else:
+    print(f"The folder '{ISOCHRONES}' does not exist. Creating it...")
+    os.makedirs(ISOCHRONES)
+
 # Load the cities.csv file
-csv_file = "data/location/geocoded_cities.csv"
+csv_file = os.path.join(LOCATIONS, "geocoded_cities.csv")
 if not os.path.exists(csv_file):
     raise FileNotFoundError(f"The file '{csv_file}' was not found.")
 
@@ -97,7 +131,7 @@ with ThreadPoolExecutor(
 
 # Save individual isochrones to GeoJSON files
 for city_name, isochrone_result in isochrones_data.items():
-    output_file = f"data/isochrones/{city_name}_isochrones.geojson"
+    output_file = os.path.join(ISOCHRONES, f"{city_name}_isochrones.geojson")
     try:
         with open(output_file, "w") as f:
             json.dump(isochrone_result, f)
@@ -106,7 +140,7 @@ for city_name, isochrone_result in isochrones_data.items():
         print(f"Error saving isochrones for {city_name}: {e}")
 
 # Save all isochrones data to a single GeoJSON file
-output_file = "data/isochrones/isochrones.geojson"
+output_file = os.path.join(ISOCHRONES, "isochrones.geojson")
 try:
     with open(output_file, "w") as f:
         # Combine all isochrones into a single GeoJSON FeatureCollection

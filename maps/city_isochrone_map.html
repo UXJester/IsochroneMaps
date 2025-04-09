@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_80eb9082f95f2ef0f4eb923a6d89cfe8 {
+                #map_c4dc071efeedecd483a110170acec2fe {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -56,19 +56,38 @@
                 }
             </style>
         
+    
+        <style>
+          .custom-tooltip {
+  background-color: black;
+  border: 1px solid #000;
+  border-radius: 5px;
+  color: white;
+  font-size: 12px;
+  padding: 5px;
+  text-align: center;
+}
+
+.custom-tooltip::before {
+  border-top-color: #000;
+  margin-left: -5px;
+}
+
+        </style>
+        
 </head>
 <body>
     
     
-            <div class="folium-map" id="map_80eb9082f95f2ef0f4eb923a6d89cfe8" ></div>
+            <div class="folium-map" id="map_c4dc071efeedecd483a110170acec2fe" ></div>
         
     <a href='#' id='export'>Export</a>
 </body>
 <script>
     
     
-            var map_80eb9082f95f2ef0f4eb923a6d89cfe8 = L.map(
-                "map_80eb9082f95f2ef0f4eb923a6d89cfe8",
+            var map_c4dc071efeedecd483a110170acec2fe = L.map(
+                "map_c4dc071efeedecd483a110170acec2fe",
                 {
                     center: [41.2964104264669, -88.83033555861162],
                     crs: L.CRS.EPSG3857,
@@ -80,13 +99,13 @@
 
                 }
             );
-            L.control.scale().addTo(map_80eb9082f95f2ef0f4eb923a6d89cfe8);
+            L.control.scale().addTo(map_c4dc071efeedecd483a110170acec2fe);
 
             
 
         
     
-            var tile_layer_b5402817e9bfcb041cd4eb60d0cf2137 = L.tileLayer(
+            var tile_layer_199f96c4c8d40dc77413168f3ae5d748 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -103,92 +122,52 @@
             );
         
     
-            tile_layer_b5402817e9bfcb041cd4eb60d0cf2137.addTo(map_80eb9082f95f2ef0f4eb923a6d89cfe8);
+            tile_layer_199f96c4c8d40dc77413168f3ae5d748.addTo(map_c4dc071efeedecd483a110170acec2fe);
         
     
-            var feature_group_10f6be4724a7f3c98a926e929a4a5f0d = L.featureGroup(
+            var feature_group_8b125a46c08cf333cce2fd4c92f8abeb = L.featureGroup(
                 {
 }
             );
         
     
-            feature_group_10f6be4724a7f3c98a926e929a4a5f0d.addTo(map_80eb9082f95f2ef0f4eb923a6d89cfe8);
+            feature_group_8b125a46c08cf333cce2fd4c92f8abeb.addTo(map_c4dc071efeedecd483a110170acec2fe);
         
     
-            var feature_group_a7a661ae32a31efd2e5d571290df788a = L.featureGroup(
+            var feature_group_a264b6a07338f8f72ff999ee7c11e55b = L.featureGroup(
                 {
 }
             );
         
     
-        function geo_json_ac9c1ce61bfc1cb1548592eb7aeca0ba_styler(feature) {
-            switch(feature.properties.group_index) {
-                default:
-                    return {"color": "gray", "fillColor": "gray", "fillOpacity": 0.4, "weight": 2};
-            }
-        }
-
-        function geo_json_ac9c1ce61bfc1cb1548592eb7aeca0ba_onEachFeature(feature, layer) {
-            layer.on({
-            });
-        };
-        var geo_json_ac9c1ce61bfc1cb1548592eb7aeca0ba = L.geoJson(null, {
-                onEachFeature: geo_json_ac9c1ce61bfc1cb1548592eb7aeca0ba_onEachFeature,
-            
-                style: geo_json_ac9c1ce61bfc1cb1548592eb7aeca0ba_styler,
-            ...{
-}
-        });
-
-        function geo_json_ac9c1ce61bfc1cb1548592eb7aeca0ba_add (data) {
-            geo_json_ac9c1ce61bfc1cb1548592eb7aeca0ba
-                .addData(data);
-        }
-            geo_json_ac9c1ce61bfc1cb1548592eb7aeca0ba_add({"features": [{"geometry": {"coordinates": [[[-89.904064, 41.402633], [-89.685421, 41.298785], [-89.479619, 41.18297], [-89.407834, 41.081203], [-89.405617, 41.078368], [-89.161383, 40.91036], [-89.108174, 40.851202], [-89.036379, 40.757748], [-89.032781, 40.757845], [-88.814774, 40.930325], [-88.7325, 40.951316], [-88.553467, 40.971435], [-88.41532, 41.007787], [-88.298004, 41.094091], [-88.080468, 41.319561], [-87.934994, 41.542277], [-87.9358, 41.545786], [-88.052769, 41.694921], [-88.124615, 41.686248], [-88.307992, 41.689811], [-88.46971, 41.739952], [-88.477792, 41.742499], [-88.752181, 41.831107], [-88.895207, 41.901358], [-89.018776, 41.999578], [-89.022376, 41.999552], [-89.110548, 41.888514], [-89.32964, 41.718614], [-89.331138, 41.717629], [-89.460161, 41.607956], [-89.687257, 41.487346], [-89.903264, 41.406142], [-89.904064, 41.402633]]], "type": "Polygon"}, "properties": {"center": [-88.84591504117277, 41.351662823954406], "city": "Ottawa", "group_index": 0, "value": 3600.0}, "type": "Feature"}], "type": "FeatureCollection"});
-
-        
-    
-            geo_json_ac9c1ce61bfc1cb1548592eb7aeca0ba.bindTooltip(
-                `<div>
-                     Isochrone for Ottawa: 60.0 minutes
-                 </div>`,
-                {
-  "sticky": true,
-}
-            );
-        
-    
-            geo_json_ac9c1ce61bfc1cb1548592eb7aeca0ba.addTo(feature_group_a7a661ae32a31efd2e5d571290df788a);
-        
-    
-        function geo_json_e39fadf513489f9abeb10bd5e9c323d2_styler(feature) {
+        function geo_json_cc524e8f98ba56e51c62f0206afd28ef_styler(feature) {
             switch(feature.properties.group_index) {
                 default:
                     return {"color": "red", "fillColor": "red", "fillOpacity": 0.4, "weight": 2};
             }
         }
 
-        function geo_json_e39fadf513489f9abeb10bd5e9c323d2_onEachFeature(feature, layer) {
+        function geo_json_cc524e8f98ba56e51c62f0206afd28ef_onEachFeature(feature, layer) {
             layer.on({
             });
         };
-        var geo_json_e39fadf513489f9abeb10bd5e9c323d2 = L.geoJson(null, {
-                onEachFeature: geo_json_e39fadf513489f9abeb10bd5e9c323d2_onEachFeature,
+        var geo_json_cc524e8f98ba56e51c62f0206afd28ef = L.geoJson(null, {
+                onEachFeature: geo_json_cc524e8f98ba56e51c62f0206afd28ef_onEachFeature,
             
-                style: geo_json_e39fadf513489f9abeb10bd5e9c323d2_styler,
+                style: geo_json_cc524e8f98ba56e51c62f0206afd28ef_styler,
             ...{
 }
         });
 
-        function geo_json_e39fadf513489f9abeb10bd5e9c323d2_add (data) {
-            geo_json_e39fadf513489f9abeb10bd5e9c323d2
+        function geo_json_cc524e8f98ba56e51c62f0206afd28ef_add (data) {
+            geo_json_cc524e8f98ba56e51c62f0206afd28ef
                 .addData(data);
         }
-            geo_json_e39fadf513489f9abeb10bd5e9c323d2_add({"features": [{"geometry": {"coordinates": [[[-90.003243, 42.356949], [-90.001631, 42.355277], [-89.771065, 42.152764], [-89.747217, 42.141192], [-89.589302, 42.035619], [-89.481338, 41.81807], [-89.479725, 41.814852], [-89.231999, 41.756292], [-89.063171, 41.555156], [-89.05959, 41.555532], [-88.905755, 41.688277], [-88.818256, 41.767018], [-88.575006, 41.865379], [-88.341651, 42.032058], [-88.285081, 42.032264], [-88.284994, 42.032292], [-88.191732, 42.057498], [-88.161952, 42.064677], [-88.161953, 42.068277], [-88.371582, 42.191961], [-88.463375, 42.462082], [-88.508982, 42.684047], [-88.511461, 42.686657], [-88.732058, 42.72028], [-88.887875, 42.871352], [-88.890483, 42.873833], [-89.084098, 42.930516], [-89.087569, 42.929561], [-89.28888, 42.717708], [-89.368506, 42.703121], [-89.368567, 42.703111], [-89.388483, 42.692482], [-89.662748, 42.557395], [-89.906106, 42.430119], [-89.983798, 42.375242], [-90.001681, 42.358876], [-90.003246, 42.357014], [-90.003243, 42.356949]]], "type": "Polygon"}, "properties": {"center": [-89.09380648549796, 42.27160374865368], "city": "Rockford", "group_index": 0, "value": 3600.0}, "type": "Feature"}], "type": "FeatureCollection"});
+            geo_json_cc524e8f98ba56e51c62f0206afd28ef_add({"features": [{"geometry": {"coordinates": [[[-90.003243, 42.356949], [-90.001631, 42.355277], [-89.771065, 42.152764], [-89.747217, 42.141192], [-89.589302, 42.035619], [-89.481338, 41.81807], [-89.479725, 41.814852], [-89.231999, 41.756292], [-89.063171, 41.555156], [-89.05959, 41.555532], [-88.905755, 41.688277], [-88.818256, 41.767018], [-88.575006, 41.865379], [-88.341651, 42.032058], [-88.285081, 42.032264], [-88.284994, 42.032292], [-88.191732, 42.057498], [-88.161952, 42.064677], [-88.161953, 42.068277], [-88.371582, 42.191961], [-88.463375, 42.462082], [-88.508982, 42.684047], [-88.511461, 42.686657], [-88.732058, 42.72028], [-88.887875, 42.871352], [-88.890483, 42.873833], [-89.084098, 42.930516], [-89.087569, 42.929561], [-89.28888, 42.717708], [-89.368506, 42.703121], [-89.368567, 42.703111], [-89.388483, 42.692482], [-89.662748, 42.557395], [-89.906106, 42.430119], [-89.983798, 42.375242], [-90.001681, 42.358876], [-90.003246, 42.357014], [-90.003243, 42.356949]]], "type": "Polygon"}, "properties": {"center": [-89.09380648549796, 42.27160374865368], "city": "Rockford", "group_index": 0, "value": 3600.0}, "type": "Feature"}], "type": "FeatureCollection"});
 
         
     
-            geo_json_e39fadf513489f9abeb10bd5e9c323d2.bindTooltip(
+            geo_json_cc524e8f98ba56e51c62f0206afd28ef.bindTooltip(
                 `<div>
                      Isochrone for Rockford: 60.0 minutes
                  </div>`,
@@ -198,37 +177,77 @@
             );
         
     
-            geo_json_e39fadf513489f9abeb10bd5e9c323d2.addTo(feature_group_a7a661ae32a31efd2e5d571290df788a);
+            geo_json_cc524e8f98ba56e51c62f0206afd28ef.addTo(feature_group_a264b6a07338f8f72ff999ee7c11e55b);
         
     
-        function geo_json_f4849637dc60926d55d95702497d0918_styler(feature) {
+        function geo_json_e7a303c13c882f45541932abef0ebbf3_styler(feature) {
             switch(feature.properties.group_index) {
                 default:
                     return {"color": "purple", "fillColor": "purple", "fillOpacity": 0.4, "weight": 2};
             }
         }
 
-        function geo_json_f4849637dc60926d55d95702497d0918_onEachFeature(feature, layer) {
+        function geo_json_e7a303c13c882f45541932abef0ebbf3_onEachFeature(feature, layer) {
             layer.on({
             });
         };
-        var geo_json_f4849637dc60926d55d95702497d0918 = L.geoJson(null, {
-                onEachFeature: geo_json_f4849637dc60926d55d95702497d0918_onEachFeature,
+        var geo_json_e7a303c13c882f45541932abef0ebbf3 = L.geoJson(null, {
+                onEachFeature: geo_json_e7a303c13c882f45541932abef0ebbf3_onEachFeature,
             
-                style: geo_json_f4849637dc60926d55d95702497d0918_styler,
+                style: geo_json_e7a303c13c882f45541932abef0ebbf3_styler,
             ...{
 }
         });
 
-        function geo_json_f4849637dc60926d55d95702497d0918_add (data) {
-            geo_json_f4849637dc60926d55d95702497d0918
+        function geo_json_e7a303c13c882f45541932abef0ebbf3_add (data) {
+            geo_json_e7a303c13c882f45541932abef0ebbf3
                 .addData(data);
         }
-            geo_json_f4849637dc60926d55d95702497d0918_add({"features": [{"geometry": {"coordinates": [[[-90.544312, 39.682582], [-90.330872, 39.546187], [-90.229982, 39.542076], [-90.226382, 39.542051], [-89.983351, 39.494643], [-89.888867, 39.367679], [-89.87114, 39.33645], [-89.8347, 39.275106], [-89.769429, 39.072699], [-89.757618, 39.045799], [-89.754018, 39.045821], [-89.586404, 39.172327], [-89.535838, 39.21235], [-89.461233, 39.303173], [-89.295749, 39.426231], [-89.141384, 39.434156], [-89.140145, 39.434467], [-88.97667, 39.622705], [-88.828798, 39.730839], [-88.826452, 39.733569], [-88.730661, 40.015832], [-88.730964, 40.019419], [-88.735493, 40.019036], [-88.740022, 40.018654], [-88.745309, 40.018205], [-88.963788, 40.076812], [-89.108515, 40.313535], [-89.105992, 40.358229], [-89.108699, 40.360602], [-89.415914, 40.426824], [-89.469612, 40.48061], [-89.473212, 40.480561], [-89.608471, 40.307308], [-89.803539, 40.227197], [-89.987339, 40.128318], [-90.207474, 39.979646], [-90.232498, 39.962685], [-90.425134, 39.778781], [-90.544067, 39.686174], [-90.544312, 39.682582]]], "type": "Polygon"}, "properties": {"center": [-89.64396199848665, 39.798808487138885], "city": "Springfield", "group_index": 0, "value": 3600.0}, "type": "Feature"}], "type": "FeatureCollection"});
+            geo_json_e7a303c13c882f45541932abef0ebbf3_add({"features": [{"geometry": {"coordinates": [[[-89.904064, 41.402633], [-89.685421, 41.298785], [-89.479619, 41.18297], [-89.407834, 41.081203], [-89.405617, 41.078368], [-89.161383, 40.91036], [-89.108174, 40.851202], [-89.036379, 40.757748], [-89.032781, 40.757845], [-88.814774, 40.930325], [-88.7325, 40.951316], [-88.553467, 40.971435], [-88.41532, 41.007787], [-88.298004, 41.094091], [-88.080468, 41.319561], [-87.934994, 41.542277], [-87.9358, 41.545786], [-88.052769, 41.694921], [-88.124615, 41.686248], [-88.307992, 41.689811], [-88.46971, 41.739952], [-88.477792, 41.742499], [-88.752181, 41.831107], [-88.895207, 41.901358], [-89.018776, 41.999578], [-89.022376, 41.999552], [-89.110548, 41.888514], [-89.32964, 41.718614], [-89.331138, 41.717629], [-89.460161, 41.607956], [-89.687257, 41.487346], [-89.903264, 41.406142], [-89.904064, 41.402633]]], "type": "Polygon"}, "properties": {"center": [-88.84591504117277, 41.351662823954406], "city": "Ottawa", "group_index": 0, "value": 3600.0}, "type": "Feature"}], "type": "FeatureCollection"});
 
         
     
-            geo_json_f4849637dc60926d55d95702497d0918.bindTooltip(
+            geo_json_e7a303c13c882f45541932abef0ebbf3.bindTooltip(
+                `<div>
+                     Isochrone for Ottawa: 60.0 minutes
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            geo_json_e7a303c13c882f45541932abef0ebbf3.addTo(feature_group_a264b6a07338f8f72ff999ee7c11e55b);
+        
+    
+        function geo_json_a44b89f8d3171762b93ef8f56a0c8d68_styler(feature) {
+            switch(feature.properties.group_index) {
+                default:
+                    return {"color": "orange", "fillColor": "orange", "fillOpacity": 0.4, "weight": 2};
+            }
+        }
+
+        function geo_json_a44b89f8d3171762b93ef8f56a0c8d68_onEachFeature(feature, layer) {
+            layer.on({
+            });
+        };
+        var geo_json_a44b89f8d3171762b93ef8f56a0c8d68 = L.geoJson(null, {
+                onEachFeature: geo_json_a44b89f8d3171762b93ef8f56a0c8d68_onEachFeature,
+            
+                style: geo_json_a44b89f8d3171762b93ef8f56a0c8d68_styler,
+            ...{
+}
+        });
+
+        function geo_json_a44b89f8d3171762b93ef8f56a0c8d68_add (data) {
+            geo_json_a44b89f8d3171762b93ef8f56a0c8d68
+                .addData(data);
+        }
+            geo_json_a44b89f8d3171762b93ef8f56a0c8d68_add({"features": [{"geometry": {"coordinates": [[[-90.544312, 39.682582], [-90.330872, 39.546187], [-90.229982, 39.542076], [-90.226382, 39.542051], [-89.983351, 39.494643], [-89.888867, 39.367679], [-89.87114, 39.33645], [-89.8347, 39.275106], [-89.769429, 39.072699], [-89.757618, 39.045799], [-89.754018, 39.045821], [-89.586404, 39.172327], [-89.535838, 39.21235], [-89.461233, 39.303173], [-89.295749, 39.426231], [-89.141383, 39.434155], [-89.140144, 39.434467], [-88.97667, 39.622705], [-88.828798, 39.730839], [-88.826452, 39.733569], [-88.730661, 40.015832], [-88.730964, 40.019419], [-88.735493, 40.019036], [-88.740022, 40.018654], [-88.745309, 40.018205], [-88.963788, 40.076812], [-89.108515, 40.313535], [-89.105992, 40.358229], [-89.108699, 40.360602], [-89.415914, 40.426824], [-89.469612, 40.48061], [-89.473212, 40.480561], [-89.60847, 40.307308], [-89.803539, 40.227197], [-89.985345, 40.126769], [-90.215386, 39.960022], [-90.425134, 39.778781], [-90.544067, 39.686174], [-90.544312, 39.682582]]], "type": "Polygon"}, "properties": {"center": [-89.64396199848665, 39.798808487138885], "city": "Springfield", "group_index": 0, "value": 3600.0}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_a44b89f8d3171762b93ef8f56a0c8d68.bindTooltip(
                 `<div>
                      Isochrone for Springfield: 60.0 minutes
                  </div>`,
@@ -238,37 +257,37 @@
             );
         
     
-            geo_json_f4849637dc60926d55d95702497d0918.addTo(feature_group_a7a661ae32a31efd2e5d571290df788a);
+            geo_json_a44b89f8d3171762b93ef8f56a0c8d68.addTo(feature_group_a264b6a07338f8f72ff999ee7c11e55b);
         
     
-        function geo_json_151636c6a9e5f884f447b3c4ab626188_styler(feature) {
+        function geo_json_e900d14ae2cc3cc3ef4a2bc17f1a5931_styler(feature) {
             switch(feature.properties.group_index) {
                 default:
-                    return {"color": "orange", "fillColor": "orange", "fillOpacity": 0.4, "weight": 2};
+                    return {"color": "blue", "fillColor": "blue", "fillOpacity": 0.4, "weight": 2};
             }
         }
 
-        function geo_json_151636c6a9e5f884f447b3c4ab626188_onEachFeature(feature, layer) {
+        function geo_json_e900d14ae2cc3cc3ef4a2bc17f1a5931_onEachFeature(feature, layer) {
             layer.on({
             });
         };
-        var geo_json_151636c6a9e5f884f447b3c4ab626188 = L.geoJson(null, {
-                onEachFeature: geo_json_151636c6a9e5f884f447b3c4ab626188_onEachFeature,
+        var geo_json_e900d14ae2cc3cc3ef4a2bc17f1a5931 = L.geoJson(null, {
+                onEachFeature: geo_json_e900d14ae2cc3cc3ef4a2bc17f1a5931_onEachFeature,
             
-                style: geo_json_151636c6a9e5f884f447b3c4ab626188_styler,
+                style: geo_json_e900d14ae2cc3cc3ef4a2bc17f1a5931_styler,
             ...{
 }
         });
 
-        function geo_json_151636c6a9e5f884f447b3c4ab626188_add (data) {
-            geo_json_151636c6a9e5f884f447b3c4ab626188
+        function geo_json_e900d14ae2cc3cc3ef4a2bc17f1a5931_add (data) {
+            geo_json_e900d14ae2cc3cc3ef4a2bc17f1a5931
                 .addData(data);
         }
-            geo_json_151636c6a9e5f884f447b3c4ab626188_add({"features": [{"geometry": {"coordinates": [[[-90.47579, 40.916664], [-90.285656, 40.709463], [-90.275713, 40.697086], [-90.182322, 40.560187], [-90.162482, 40.393122], [-90.16248, 40.39293], [-90.161834, 40.39135], [-90.155464, 40.386511], [-90.090054, 40.339668], [-90.086456, 40.339797], [-89.84673, 40.294406], [-89.697443, 40.227516], [-89.559771, 39.954972], [-89.556208, 39.954454], [-89.304299, 40.081888], [-89.301637, 40.084311], [-89.24833, 40.147949], [-88.968022, 40.227166], [-88.726672, 40.308875], [-88.724426, 40.311688], [-88.747613, 40.345235], [-88.739189, 40.637641], [-88.735213, 40.72282], [-88.735192, 40.723812], [-88.735203, 40.724751], [-88.735337, 40.730094], [-88.735472, 40.735436], [-89.000184, 40.870236], [-89.139412, 41.031401], [-89.220749, 41.120244], [-89.345059, 41.262126], [-89.398923, 41.299441], [-89.402523, 41.299369], [-89.661475, 41.179228], [-89.924304, 41.165955], [-89.927902, 41.16586], [-90.009553, 41.107128], [-90.044005, 41.081928], [-90.329355, 41.149007], [-90.332916, 41.149532], [-90.446959, 40.985586], [-90.466404, 40.949184], [-90.477525, 40.919818], [-90.47579, 40.916664]]], "type": "Polygon"}, "properties": {"center": [-89.58901895606702, 40.69378463124665], "city": "Peoria", "group_index": 0, "value": 3600.0}, "type": "Feature"}], "type": "FeatureCollection"});
+            geo_json_e900d14ae2cc3cc3ef4a2bc17f1a5931_add({"features": [{"geometry": {"coordinates": [[[-90.47579, 40.916664], [-90.285656, 40.709463], [-90.275713, 40.697086], [-90.182322, 40.560187], [-90.162482, 40.393122], [-90.16248, 40.39293], [-90.161834, 40.39135], [-90.155464, 40.386511], [-90.090054, 40.339668], [-90.086456, 40.339797], [-89.84673, 40.294406], [-89.697443, 40.227516], [-89.559771, 39.954972], [-89.556208, 39.954454], [-89.304299, 40.081888], [-89.301637, 40.084311], [-89.24833, 40.147949], [-88.968022, 40.227166], [-88.726672, 40.308875], [-88.724426, 40.311688], [-88.747613, 40.345235], [-88.739189, 40.637641], [-88.735213, 40.72282], [-88.735192, 40.723812], [-88.735203, 40.724751], [-88.735337, 40.730094], [-88.735472, 40.735436], [-89.000184, 40.870236], [-89.139412, 41.031401], [-89.220749, 41.120244], [-89.345059, 41.262126], [-89.398923, 41.299441], [-89.402523, 41.299369], [-89.661475, 41.179228], [-89.924304, 41.165955], [-89.927902, 41.16586], [-90.009553, 41.107128], [-90.044005, 41.081928], [-90.329355, 41.149007], [-90.332916, 41.149532], [-90.446959, 40.985586], [-90.466404, 40.949184], [-90.477525, 40.919818], [-90.47579, 40.916664]]], "type": "Polygon"}, "properties": {"center": [-89.58901895606702, 40.69378463124665], "city": "Peoria", "group_index": 0, "value": 3600.0}, "type": "Feature"}], "type": "FeatureCollection"});
 
         
     
-            geo_json_151636c6a9e5f884f447b3c4ab626188.bindTooltip(
+            geo_json_e900d14ae2cc3cc3ef4a2bc17f1a5931.bindTooltip(
                 `<div>
                      Isochrone for Peoria: 60.0 minutes
                  </div>`,
@@ -278,37 +297,37 @@
             );
         
     
-            geo_json_151636c6a9e5f884f447b3c4ab626188.addTo(feature_group_a7a661ae32a31efd2e5d571290df788a);
+            geo_json_e900d14ae2cc3cc3ef4a2bc17f1a5931.addTo(feature_group_a264b6a07338f8f72ff999ee7c11e55b);
         
     
-        function geo_json_2adeca1d4c5b3421799bbcf15a35035a_styler(feature) {
+        function geo_json_e2646e9a2dd201b909f396d1eaa8e4ba_styler(feature) {
             switch(feature.properties.group_index) {
                 default:
-                    return {"color": "blue", "fillColor": "blue", "fillOpacity": 0.4, "weight": 2};
+                    return {"color": "green", "fillColor": "green", "fillOpacity": 0.4, "weight": 2};
             }
         }
 
-        function geo_json_2adeca1d4c5b3421799bbcf15a35035a_onEachFeature(feature, layer) {
+        function geo_json_e2646e9a2dd201b909f396d1eaa8e4ba_onEachFeature(feature, layer) {
             layer.on({
             });
         };
-        var geo_json_2adeca1d4c5b3421799bbcf15a35035a = L.geoJson(null, {
-                onEachFeature: geo_json_2adeca1d4c5b3421799bbcf15a35035a_onEachFeature,
+        var geo_json_e2646e9a2dd201b909f396d1eaa8e4ba = L.geoJson(null, {
+                onEachFeature: geo_json_e2646e9a2dd201b909f396d1eaa8e4ba_onEachFeature,
             
-                style: geo_json_2adeca1d4c5b3421799bbcf15a35035a_styler,
+                style: geo_json_e2646e9a2dd201b909f396d1eaa8e4ba_styler,
             ...{
 }
         });
 
-        function geo_json_2adeca1d4c5b3421799bbcf15a35035a_add (data) {
-            geo_json_2adeca1d4c5b3421799bbcf15a35035a
+        function geo_json_e2646e9a2dd201b909f396d1eaa8e4ba_add (data) {
+            geo_json_e2646e9a2dd201b909f396d1eaa8e4ba
                 .addData(data);
         }
-            geo_json_2adeca1d4c5b3421799bbcf15a35035a_add({"features": [{"geometry": {"coordinates": [[[-88.403138, 42.106174], [-88.478459, 41.824222], [-88.477448, 41.822917], [-88.476777, 41.8221], [-88.475442, 41.820479], [-88.474805, 41.819863], [-88.417739, 41.766359], [-88.204337, 41.612057], [-88.182153, 41.549295], [-88.060279, 41.511395], [-87.823514, 41.315579], [-87.820004, 41.314782], [-87.52422, 41.417892], [-87.315744, 41.522052], [-87.138976, 41.570051], [-87.135249, 41.603779], [-87.136548, 41.607137], [-87.253726, 41.619937], [-87.409741, 41.671006], [-87.601268, 41.892157], [-87.67097, 42.05929], [-87.681029, 42.079244], [-87.829948, 42.347853], [-87.831464, 42.349825], [-87.894273, 42.371036], [-87.934781, 42.360642], [-87.937441, 42.358216], [-88.108229, 42.192357], [-88.23149, 42.135734], [-88.401974, 42.109581], [-88.403138, 42.106174]]], "type": "Polygon"}, "properties": {"center": [-87.62434832724945, 41.87556204333322], "city": "Chicago", "group_index": 0, "value": 3600.0}, "type": "Feature"}], "type": "FeatureCollection"});
+            geo_json_e2646e9a2dd201b909f396d1eaa8e4ba_add({"features": [{"geometry": {"coordinates": [[[-88.403138, 42.106174], [-88.478459, 41.824222], [-88.477448, 41.822917], [-88.476777, 41.8221], [-88.475442, 41.820479], [-88.474805, 41.819863], [-88.417739, 41.766359], [-88.204337, 41.612057], [-88.182153, 41.549295], [-88.060279, 41.511395], [-87.823514, 41.315579], [-87.820004, 41.314782], [-87.52422, 41.417892], [-87.315744, 41.522052], [-87.138976, 41.570051], [-87.135249, 41.603779], [-87.136548, 41.607137], [-87.253726, 41.619937], [-87.409741, 41.671006], [-87.601268, 41.892157], [-87.67097, 42.05929], [-87.681029, 42.079244], [-87.829948, 42.347853], [-87.831464, 42.349825], [-87.894273, 42.371036], [-87.934781, 42.360642], [-87.937441, 42.358216], [-88.108229, 42.192357], [-88.23149, 42.135734], [-88.401974, 42.109581], [-88.403138, 42.106174]]], "type": "Polygon"}, "properties": {"center": [-87.62434832724945, 41.87556204333322], "city": "Chicago", "group_index": 0, "value": 3600.0}, "type": "Feature"}], "type": "FeatureCollection"});
 
         
     
-            geo_json_2adeca1d4c5b3421799bbcf15a35035a.bindTooltip(
+            geo_json_e2646e9a2dd201b909f396d1eaa8e4ba.bindTooltip(
                 `<div>
                      Isochrone for Chicago: 60.0 minutes
                  </div>`,
@@ -318,37 +337,37 @@
             );
         
     
-            geo_json_2adeca1d4c5b3421799bbcf15a35035a.addTo(feature_group_a7a661ae32a31efd2e5d571290df788a);
+            geo_json_e2646e9a2dd201b909f396d1eaa8e4ba.addTo(feature_group_a264b6a07338f8f72ff999ee7c11e55b);
         
     
-        function geo_json_6f34fcde8b463f2c3c0a77fce14b152b_styler(feature) {
+        function geo_json_c73d4d6b8ba59139b9d951a4f13d0277_styler(feature) {
             switch(feature.properties.group_index) {
                 default:
-                    return {"color": "green", "fillColor": "green", "fillOpacity": 0.4, "weight": 2};
+                    return {"color": "gray", "fillColor": "gray", "fillOpacity": 0.4, "weight": 2};
             }
         }
 
-        function geo_json_6f34fcde8b463f2c3c0a77fce14b152b_onEachFeature(feature, layer) {
+        function geo_json_c73d4d6b8ba59139b9d951a4f13d0277_onEachFeature(feature, layer) {
             layer.on({
             });
         };
-        var geo_json_6f34fcde8b463f2c3c0a77fce14b152b = L.geoJson(null, {
-                onEachFeature: geo_json_6f34fcde8b463f2c3c0a77fce14b152b_onEachFeature,
+        var geo_json_c73d4d6b8ba59139b9d951a4f13d0277 = L.geoJson(null, {
+                onEachFeature: geo_json_c73d4d6b8ba59139b9d951a4f13d0277_onEachFeature,
             
-                style: geo_json_6f34fcde8b463f2c3c0a77fce14b152b_styler,
+                style: geo_json_c73d4d6b8ba59139b9d951a4f13d0277_styler,
             ...{
 }
         });
 
-        function geo_json_6f34fcde8b463f2c3c0a77fce14b152b_add (data) {
-            geo_json_6f34fcde8b463f2c3c0a77fce14b152b
+        function geo_json_c73d4d6b8ba59139b9d951a4f13d0277_add (data) {
+            geo_json_c73d4d6b8ba59139b9d951a4f13d0277
                 .addData(data);
         }
-            geo_json_6f34fcde8b463f2c3c0a77fce14b152b_add({"features": [{"geometry": {"coordinates": [[[-89.04305, 41.900501], [-88.763772, 41.767317], [-88.697318, 41.708849], [-88.572573, 41.572507], [-88.538227, 41.379253], [-88.53818, 41.375654], [-88.282946, 41.219141], [-88.084346, 41.319479], [-87.957889, 41.353085], [-87.764459, 41.400376], [-87.599718, 41.576873], [-87.599401, 41.578541], [-87.599218, 41.580439], [-87.593955, 41.818218], [-87.601268, 41.892157], [-87.709824, 42.005798], [-87.834631, 42.169039], [-87.899462, 42.237147], [-87.903062, 42.237143], [-88.111659, 42.21385], [-88.404527, 42.110683], [-88.454514, 42.096119], [-88.473456, 42.090361], [-88.554092, 42.058767], [-88.784789, 42.015139], [-89.025509, 41.916627], [-89.043539, 41.904068], [-89.04305, 41.900501]]], "type": "Polygon"}, "properties": {"center": [-88.14785056868095, 41.772867475932635], "city": "Naperville", "group_index": 0, "value": 3600.0}, "type": "Feature"}], "type": "FeatureCollection"});
+            geo_json_c73d4d6b8ba59139b9d951a4f13d0277_add({"features": [{"geometry": {"coordinates": [[[-89.04305, 41.900501], [-88.763772, 41.767317], [-88.697318, 41.708849], [-88.572574, 41.572507], [-88.538227, 41.379253], [-88.53818, 41.375654], [-88.282946, 41.219141], [-88.084346, 41.319479], [-87.957889, 41.353085], [-87.764459, 41.400376], [-87.599718, 41.576873], [-87.599401, 41.578541], [-87.599218, 41.580439], [-87.593955, 41.818218], [-87.601268, 41.892157], [-87.709824, 42.005798], [-87.834631, 42.169039], [-87.899462, 42.237147], [-87.903062, 42.237143], [-88.111659, 42.21385], [-88.404527, 42.110683], [-88.470943, 42.090371], [-88.55118, 42.05778], [-88.784789, 42.015139], [-89.025509, 41.916627], [-89.043539, 41.904068], [-89.04305, 41.900501]]], "type": "Polygon"}, "properties": {"center": [-88.14785056868095, 41.772867475932635], "city": "Naperville", "group_index": 0, "value": 3600.0}, "type": "Feature"}], "type": "FeatureCollection"});
 
         
     
-            geo_json_6f34fcde8b463f2c3c0a77fce14b152b.bindTooltip(
+            geo_json_c73d4d6b8ba59139b9d951a4f13d0277.bindTooltip(
                 `<div>
                      Isochrone for Naperville: 60.0 minutes
                  </div>`,
@@ -358,26 +377,26 @@
             );
         
     
-            geo_json_6f34fcde8b463f2c3c0a77fce14b152b.addTo(feature_group_a7a661ae32a31efd2e5d571290df788a);
+            geo_json_c73d4d6b8ba59139b9d951a4f13d0277.addTo(feature_group_a264b6a07338f8f72ff999ee7c11e55b);
         
     
-            feature_group_a7a661ae32a31efd2e5d571290df788a.addTo(map_80eb9082f95f2ef0f4eb923a6d89cfe8);
+            feature_group_a264b6a07338f8f72ff999ee7c11e55b.addTo(map_c4dc071efeedecd483a110170acec2fe);
         
     
-            var feature_group_9313843b69d6d01c0b33a14277ced273 = L.featureGroup(
+            var feature_group_8db1e65fe215fbfd0b6d1b8c0edf636c = L.featureGroup(
                 {
 }
             );
         
     
-            var marker_3e438a4ba6efa35089353649ee7302c5 = L.marker(
+            var marker_0de2ba0bfdc3b9605dac689ef0fb7a58 = L.marker(
                 [41.8755616, -87.6244212],
                 {
 }
-            ).addTo(feature_group_9313843b69d6d01c0b33a14277ced273);
+            ).addTo(feature_group_8db1e65fe215fbfd0b6d1b8c0edf636c);
         
     
-            var icon_9be7e5d8d2a290250ead5818a3211328 = L.AwesomeMarkers.icon(
+            var icon_f20ec6609554a1c8c5c49eb1d00518e3 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "red",
   "iconColor": "white",
@@ -388,63 +407,48 @@
             );
         
     
-        var popup_05511b8409a820e57857b70776abed63 = L.popup({
+        var popup_1793727a867f0a7cb093dde77da44b9e = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_95d5090e190a1be1560d1d09892dbad2 = $(`<div id="html_95d5090e190a1be1560d1d09892dbad2" style="width: 100.0%; height: 100.0%;"><b>Chicago</b></div>`)[0];
-                popup_05511b8409a820e57857b70776abed63.setContent(html_95d5090e190a1be1560d1d09892dbad2);
+                var html_34a8d574fdd5e0139893b8cdf534bd31 = $(`<div id="html_34a8d574fdd5e0139893b8cdf534bd31" style="width: 100.0%; height: 100.0%;"><b>Chicago</b></div>`)[0];
+                popup_1793727a867f0a7cb093dde77da44b9e.setContent(html_34a8d574fdd5e0139893b8cdf534bd31);
             
         
 
-        marker_3e438a4ba6efa35089353649ee7302c5.bindPopup(popup_05511b8409a820e57857b70776abed63)
+        marker_0de2ba0bfdc3b9605dac689ef0fb7a58.bindPopup(popup_1793727a867f0a7cb093dde77da44b9e)
         ;
 
         
     
     
-            marker_3e438a4ba6efa35089353649ee7302c5.bindTooltip(
+            marker_0de2ba0bfdc3b9605dac689ef0fb7a58.bindTooltip(
                 `<div>
                      Chicago
                  </div>`,
                 {
+  "permanent": true,
   "direction": "top",
+  "offset": [0, -32],
   "show": true,
-  "sticky": true,
+  "sticky": false,
 }
             );
         
     
-                marker_3e438a4ba6efa35089353649ee7302c5.setIcon(icon_9be7e5d8d2a290250ead5818a3211328);
+                marker_0de2ba0bfdc3b9605dac689ef0fb7a58.setIcon(icon_f20ec6609554a1c8c5c49eb1d00518e3);
             
     
-            var marker_67863e605e7a6f120e3411ab91d19e8f = L.marker(
-                [41.8755616, -87.6244212],
-                {
-}
-            ).addTo(feature_group_9313843b69d6d01c0b33a14277ced273);
-        
-    
-            var div_icon_47508d673d6527414338ef1c6f3b1d67 = L.divIcon({
-  "html": "\n                \u003cdiv style=\"background-color: black; font-size: 9px; color: white; text-align: center; width: max-content; border-radius: 4px; padding: 2px 4px; position: absolute; top: -50px; left: -125%;\"\u003e\n                    \u003cb\u003eChicago\u003c/b\u003e\n                \u003c/div\u003e\n                ",
-  "className": "empty",
-});
-            marker_67863e605e7a6f120e3411ab91d19e8f.setIcon(div_icon_47508d673d6527414338ef1c6f3b1d67);
-        
-    
-                marker_67863e605e7a6f120e3411ab91d19e8f.setIcon(div_icon_47508d673d6527414338ef1c6f3b1d67);
-            
-    
-            var marker_afde62f7694f555ea35e531981ec8bc5 = L.marker(
+            var marker_c46dabab3494bb043ed0ff99a4e37c35 = L.marker(
                 [41.7728699, -88.1479278],
                 {
 }
-            ).addTo(feature_group_9313843b69d6d01c0b33a14277ced273);
+            ).addTo(feature_group_8db1e65fe215fbfd0b6d1b8c0edf636c);
         
     
-            var icon_9453f307890cc8c76886f9a243e44b2b = L.AwesomeMarkers.icon(
+            var icon_f16c8ffa3a3b9706f5b81acef61756f0 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "red",
   "iconColor": "white",
@@ -455,63 +459,48 @@
             );
         
     
-        var popup_97acac53d709e790683dd3337cd33b37 = L.popup({
+        var popup_699e8eb79235c2eda702c5e506f956f3 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_cd5bb76b602690f87a7d93a50b2367ae = $(`<div id="html_cd5bb76b602690f87a7d93a50b2367ae" style="width: 100.0%; height: 100.0%;"><b>Naperville</b></div>`)[0];
-                popup_97acac53d709e790683dd3337cd33b37.setContent(html_cd5bb76b602690f87a7d93a50b2367ae);
+                var html_40f4293769abcf58703ef92f43115c53 = $(`<div id="html_40f4293769abcf58703ef92f43115c53" style="width: 100.0%; height: 100.0%;"><b>Naperville</b></div>`)[0];
+                popup_699e8eb79235c2eda702c5e506f956f3.setContent(html_40f4293769abcf58703ef92f43115c53);
             
         
 
-        marker_afde62f7694f555ea35e531981ec8bc5.bindPopup(popup_97acac53d709e790683dd3337cd33b37)
+        marker_c46dabab3494bb043ed0ff99a4e37c35.bindPopup(popup_699e8eb79235c2eda702c5e506f956f3)
         ;
 
         
     
     
-            marker_afde62f7694f555ea35e531981ec8bc5.bindTooltip(
+            marker_c46dabab3494bb043ed0ff99a4e37c35.bindTooltip(
                 `<div>
                      Naperville
                  </div>`,
                 {
+  "permanent": true,
   "direction": "top",
+  "offset": [0, -32],
   "show": true,
-  "sticky": true,
+  "sticky": false,
 }
             );
         
     
-                marker_afde62f7694f555ea35e531981ec8bc5.setIcon(icon_9453f307890cc8c76886f9a243e44b2b);
+                marker_c46dabab3494bb043ed0ff99a4e37c35.setIcon(icon_f16c8ffa3a3b9706f5b81acef61756f0);
             
     
-            var marker_9a87a6d147d3aa40aca76ddc95072e05 = L.marker(
-                [41.7728699, -88.1479278],
-                {
-}
-            ).addTo(feature_group_9313843b69d6d01c0b33a14277ced273);
-        
-    
-            var div_icon_bd767a3f72d0351487554daa36aa1968 = L.divIcon({
-  "html": "\n                \u003cdiv style=\"background-color: black; font-size: 9px; color: white; text-align: center; width: max-content; border-radius: 4px; padding: 2px 4px; position: absolute; top: -50px; left: -125%;\"\u003e\n                    \u003cb\u003eNaperville\u003c/b\u003e\n                \u003c/div\u003e\n                ",
-  "className": "empty",
-});
-            marker_9a87a6d147d3aa40aca76ddc95072e05.setIcon(div_icon_bd767a3f72d0351487554daa36aa1968);
-        
-    
-                marker_9a87a6d147d3aa40aca76ddc95072e05.setIcon(div_icon_bd767a3f72d0351487554daa36aa1968);
-            
-    
-            var marker_9b20025e0798f7592817abee05f78638 = L.marker(
+            var marker_38140a602d5f14d2674f367d9e14ed0e = L.marker(
                 [40.6938609, -89.5891008],
                 {
 }
-            ).addTo(feature_group_9313843b69d6d01c0b33a14277ced273);
+            ).addTo(feature_group_8db1e65fe215fbfd0b6d1b8c0edf636c);
         
     
-            var icon_8156f52460ea12b86fa6570dea492c90 = L.AwesomeMarkers.icon(
+            var icon_fff99f9086f0be3141454c57e956c40a = L.AwesomeMarkers.icon(
                 {
   "markerColor": "red",
   "iconColor": "white",
@@ -522,63 +511,48 @@
             );
         
     
-        var popup_c6b77912046265902e50c1d35847ef6e = L.popup({
+        var popup_e074c6ed7dbb46d1fcccaaebf17d56d9 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_f8d2b3e8f9ce0ad15da693f4d1dd5173 = $(`<div id="html_f8d2b3e8f9ce0ad15da693f4d1dd5173" style="width: 100.0%; height: 100.0%;"><b>Peoria</b></div>`)[0];
-                popup_c6b77912046265902e50c1d35847ef6e.setContent(html_f8d2b3e8f9ce0ad15da693f4d1dd5173);
+                var html_affb8da37a5f007f16334b9e0b419842 = $(`<div id="html_affb8da37a5f007f16334b9e0b419842" style="width: 100.0%; height: 100.0%;"><b>Peoria</b></div>`)[0];
+                popup_e074c6ed7dbb46d1fcccaaebf17d56d9.setContent(html_affb8da37a5f007f16334b9e0b419842);
             
         
 
-        marker_9b20025e0798f7592817abee05f78638.bindPopup(popup_c6b77912046265902e50c1d35847ef6e)
+        marker_38140a602d5f14d2674f367d9e14ed0e.bindPopup(popup_e074c6ed7dbb46d1fcccaaebf17d56d9)
         ;
 
         
     
     
-            marker_9b20025e0798f7592817abee05f78638.bindTooltip(
+            marker_38140a602d5f14d2674f367d9e14ed0e.bindTooltip(
                 `<div>
                      Peoria
                  </div>`,
                 {
+  "permanent": true,
   "direction": "top",
+  "offset": [0, -32],
   "show": true,
-  "sticky": true,
+  "sticky": false,
 }
             );
         
     
-                marker_9b20025e0798f7592817abee05f78638.setIcon(icon_8156f52460ea12b86fa6570dea492c90);
+                marker_38140a602d5f14d2674f367d9e14ed0e.setIcon(icon_fff99f9086f0be3141454c57e956c40a);
             
     
-            var marker_77ccf895c21e4411e842d7455da551ee = L.marker(
-                [40.6938609, -89.5891008],
-                {
-}
-            ).addTo(feature_group_9313843b69d6d01c0b33a14277ced273);
-        
-    
-            var div_icon_384bd7e83811d5f6c5f81362533a71f2 = L.divIcon({
-  "html": "\n                \u003cdiv style=\"background-color: black; font-size: 9px; color: white; text-align: center; width: max-content; border-radius: 4px; padding: 2px 4px; position: absolute; top: -50px; left: -125%;\"\u003e\n                    \u003cb\u003ePeoria\u003c/b\u003e\n                \u003c/div\u003e\n                ",
-  "className": "empty",
-});
-            marker_77ccf895c21e4411e842d7455da551ee.setIcon(div_icon_384bd7e83811d5f6c5f81362533a71f2);
-        
-    
-                marker_77ccf895c21e4411e842d7455da551ee.setIcon(div_icon_384bd7e83811d5f6c5f81362533a71f2);
-            
-    
-            var marker_a0fc7440c98272065a4be5c321a0745c = L.marker(
+            var marker_492862998cc0122df5d069761c9720cf = L.marker(
                 [39.7990175, -89.6439575],
                 {
 }
-            ).addTo(feature_group_9313843b69d6d01c0b33a14277ced273);
+            ).addTo(feature_group_8db1e65fe215fbfd0b6d1b8c0edf636c);
         
     
-            var icon_2da71c885b2c03b51491a3e8a950fa19 = L.AwesomeMarkers.icon(
+            var icon_9963f840e889f6994dfffa0f1027903c = L.AwesomeMarkers.icon(
                 {
   "markerColor": "red",
   "iconColor": "white",
@@ -589,63 +563,48 @@
             );
         
     
-        var popup_4121df803c40d5c771231abe4282d6b5 = L.popup({
+        var popup_352d1ed243ac07bc9e4d60683d7cb006 = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_ff550b0f2b618d895b6b5bdc7623eb60 = $(`<div id="html_ff550b0f2b618d895b6b5bdc7623eb60" style="width: 100.0%; height: 100.0%;"><b>Springfield</b></div>`)[0];
-                popup_4121df803c40d5c771231abe4282d6b5.setContent(html_ff550b0f2b618d895b6b5bdc7623eb60);
+                var html_9e091e2833ef8ad0c5d2dfe9d35322a6 = $(`<div id="html_9e091e2833ef8ad0c5d2dfe9d35322a6" style="width: 100.0%; height: 100.0%;"><b>Springfield</b></div>`)[0];
+                popup_352d1ed243ac07bc9e4d60683d7cb006.setContent(html_9e091e2833ef8ad0c5d2dfe9d35322a6);
             
         
 
-        marker_a0fc7440c98272065a4be5c321a0745c.bindPopup(popup_4121df803c40d5c771231abe4282d6b5)
+        marker_492862998cc0122df5d069761c9720cf.bindPopup(popup_352d1ed243ac07bc9e4d60683d7cb006)
         ;
 
         
     
     
-            marker_a0fc7440c98272065a4be5c321a0745c.bindTooltip(
+            marker_492862998cc0122df5d069761c9720cf.bindTooltip(
                 `<div>
                      Springfield
                  </div>`,
                 {
+  "permanent": true,
   "direction": "top",
+  "offset": [0, -32],
   "show": true,
-  "sticky": true,
+  "sticky": false,
 }
             );
         
     
-                marker_a0fc7440c98272065a4be5c321a0745c.setIcon(icon_2da71c885b2c03b51491a3e8a950fa19);
+                marker_492862998cc0122df5d069761c9720cf.setIcon(icon_9963f840e889f6994dfffa0f1027903c);
             
     
-            var marker_092d6e08e8018fa70837a6632d175a89 = L.marker(
-                [39.7990175, -89.6439575],
-                {
-}
-            ).addTo(feature_group_9313843b69d6d01c0b33a14277ced273);
-        
-    
-            var div_icon_119c57b7dee114754deb6483c4fc5dcc = L.divIcon({
-  "html": "\n                \u003cdiv style=\"background-color: black; font-size: 9px; color: white; text-align: center; width: max-content; border-radius: 4px; padding: 2px 4px; position: absolute; top: -50px; left: -125%;\"\u003e\n                    \u003cb\u003eSpringfield\u003c/b\u003e\n                \u003c/div\u003e\n                ",
-  "className": "empty",
-});
-            marker_092d6e08e8018fa70837a6632d175a89.setIcon(div_icon_119c57b7dee114754deb6483c4fc5dcc);
-        
-    
-                marker_092d6e08e8018fa70837a6632d175a89.setIcon(div_icon_119c57b7dee114754deb6483c4fc5dcc);
-            
-    
-            var marker_04d61dd14abd27bcb957a292e4603f9d = L.marker(
+            var marker_77d0535158ff32d3adb090ef6215d3e7 = L.marker(
                 [42.2713945, -89.093966],
                 {
 }
-            ).addTo(feature_group_9313843b69d6d01c0b33a14277ced273);
+            ).addTo(feature_group_8db1e65fe215fbfd0b6d1b8c0edf636c);
         
     
-            var icon_cc79d9dcd45088b5dc0595d1459ec0b2 = L.AwesomeMarkers.icon(
+            var icon_bce9dbb34739c6ab011510572013787e = L.AwesomeMarkers.icon(
                 {
   "markerColor": "red",
   "iconColor": "white",
@@ -656,63 +615,48 @@
             );
         
     
-        var popup_61260a8d4016a94c42ce585ff9005c2e = L.popup({
+        var popup_60fc0c956343fe00409dd6952a6d625c = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_56ad8f1213bdea42a723e502778d8118 = $(`<div id="html_56ad8f1213bdea42a723e502778d8118" style="width: 100.0%; height: 100.0%;"><b>Rockford</b></div>`)[0];
-                popup_61260a8d4016a94c42ce585ff9005c2e.setContent(html_56ad8f1213bdea42a723e502778d8118);
+                var html_5591358fb74e7e3b9739f0d4581bd22c = $(`<div id="html_5591358fb74e7e3b9739f0d4581bd22c" style="width: 100.0%; height: 100.0%;"><b>Rockford</b></div>`)[0];
+                popup_60fc0c956343fe00409dd6952a6d625c.setContent(html_5591358fb74e7e3b9739f0d4581bd22c);
             
         
 
-        marker_04d61dd14abd27bcb957a292e4603f9d.bindPopup(popup_61260a8d4016a94c42ce585ff9005c2e)
+        marker_77d0535158ff32d3adb090ef6215d3e7.bindPopup(popup_60fc0c956343fe00409dd6952a6d625c)
         ;
 
         
     
     
-            marker_04d61dd14abd27bcb957a292e4603f9d.bindTooltip(
+            marker_77d0535158ff32d3adb090ef6215d3e7.bindTooltip(
                 `<div>
                      Rockford
                  </div>`,
                 {
+  "permanent": true,
   "direction": "top",
+  "offset": [0, -32],
   "show": true,
-  "sticky": true,
+  "sticky": false,
 }
             );
         
     
-                marker_04d61dd14abd27bcb957a292e4603f9d.setIcon(icon_cc79d9dcd45088b5dc0595d1459ec0b2);
+                marker_77d0535158ff32d3adb090ef6215d3e7.setIcon(icon_bce9dbb34739c6ab011510572013787e);
             
     
-            var marker_1b6a07763ac3d42557642af3bf15ada4 = L.marker(
-                [42.2713945, -89.093966],
-                {
-}
-            ).addTo(feature_group_9313843b69d6d01c0b33a14277ced273);
-        
-    
-            var div_icon_7515c4856534dec2f708482209023fcd = L.divIcon({
-  "html": "\n                \u003cdiv style=\"background-color: black; font-size: 9px; color: white; text-align: center; width: max-content; border-radius: 4px; padding: 2px 4px; position: absolute; top: -50px; left: -125%;\"\u003e\n                    \u003cb\u003eRockford\u003c/b\u003e\n                \u003c/div\u003e\n                ",
-  "className": "empty",
-});
-            marker_1b6a07763ac3d42557642af3bf15ada4.setIcon(div_icon_7515c4856534dec2f708482209023fcd);
-        
-    
-                marker_1b6a07763ac3d42557642af3bf15ada4.setIcon(div_icon_7515c4856534dec2f708482209023fcd);
-            
-    
-            var marker_edd3e35d232f710052bb89ca9f0db809 = L.marker(
+            var marker_2943c48366843fba7e09fe62b0424d9d = L.marker(
                 [41.3516628, -88.845436],
                 {
 }
-            ).addTo(feature_group_9313843b69d6d01c0b33a14277ced273);
+            ).addTo(feature_group_8db1e65fe215fbfd0b6d1b8c0edf636c);
         
     
-            var icon_85050eb4d7efd88fb13d39c85b5bc9ca = L.AwesomeMarkers.icon(
+            var icon_44b76e3aa7f0a8b887b2f1375765475e = L.AwesomeMarkers.icon(
                 {
   "markerColor": "red",
   "iconColor": "white",
@@ -723,77 +667,62 @@
             );
         
     
-        var popup_f671d2a72653bc97b427d759807b81e6 = L.popup({
+        var popup_04b6e832421350fd03328f700dfb924f = L.popup({
   "maxWidth": 300,
 });
 
         
             
-                var html_114b38f369452d466dd7ad38273e8245 = $(`<div id="html_114b38f369452d466dd7ad38273e8245" style="width: 100.0%; height: 100.0%;"><b>Ottawa</b></div>`)[0];
-                popup_f671d2a72653bc97b427d759807b81e6.setContent(html_114b38f369452d466dd7ad38273e8245);
+                var html_dcdf140b92e571df38bdb05847135052 = $(`<div id="html_dcdf140b92e571df38bdb05847135052" style="width: 100.0%; height: 100.0%;"><b>Ottawa</b></div>`)[0];
+                popup_04b6e832421350fd03328f700dfb924f.setContent(html_dcdf140b92e571df38bdb05847135052);
             
         
 
-        marker_edd3e35d232f710052bb89ca9f0db809.bindPopup(popup_f671d2a72653bc97b427d759807b81e6)
+        marker_2943c48366843fba7e09fe62b0424d9d.bindPopup(popup_04b6e832421350fd03328f700dfb924f)
         ;
 
         
     
     
-            marker_edd3e35d232f710052bb89ca9f0db809.bindTooltip(
+            marker_2943c48366843fba7e09fe62b0424d9d.bindTooltip(
                 `<div>
                      Ottawa
                  </div>`,
                 {
+  "permanent": true,
   "direction": "top",
+  "offset": [0, -32],
   "show": true,
-  "sticky": true,
+  "sticky": false,
 }
             );
         
     
-                marker_edd3e35d232f710052bb89ca9f0db809.setIcon(icon_85050eb4d7efd88fb13d39c85b5bc9ca);
+                marker_2943c48366843fba7e09fe62b0424d9d.setIcon(icon_44b76e3aa7f0a8b887b2f1375765475e);
             
     
-            var marker_3ddaf79803844f9232e45a1f346f9622 = L.marker(
-                [41.3516628, -88.845436],
-                {
-}
-            ).addTo(feature_group_9313843b69d6d01c0b33a14277ced273);
+            feature_group_8db1e65fe215fbfd0b6d1b8c0edf636c.addTo(map_c4dc071efeedecd483a110170acec2fe);
         
     
-            var div_icon_7c293f331cde4f1604ee50d7dcdc7317 = L.divIcon({
-  "html": "\n                \u003cdiv style=\"background-color: black; font-size: 9px; color: white; text-align: center; width: max-content; border-radius: 4px; padding: 2px 4px; position: absolute; top: -50px; left: -125%;\"\u003e\n                    \u003cb\u003eOttawa\u003c/b\u003e\n                \u003c/div\u003e\n                ",
-  "className": "empty",
-});
-            marker_3ddaf79803844f9232e45a1f346f9622.setIcon(div_icon_7c293f331cde4f1604ee50d7dcdc7317);
-        
-    
-                marker_3ddaf79803844f9232e45a1f346f9622.setIcon(div_icon_7c293f331cde4f1604ee50d7dcdc7317);
-            
-    
-            feature_group_9313843b69d6d01c0b33a14277ced273.addTo(map_80eb9082f95f2ef0f4eb923a6d89cfe8);
-        
-    
-            var layer_control_c1eb7f5dff2e65286476a8795438ba60_layers = {
+            var layer_control_34349b9e8c0867b388f2975f20172820_layers = {
                 base_layers : {
-                    "openstreetmap" : tile_layer_b5402817e9bfcb041cd4eb60d0cf2137,
+                    "openstreetmap" : tile_layer_199f96c4c8d40dc77413168f3ae5d748,
                 },
                 overlays :  {
-                    "Draw Layer" : feature_group_10f6be4724a7f3c98a926e929a4a5f0d,
-                    "Isochrones" : feature_group_a7a661ae32a31efd2e5d571290df788a,
-                    "Cities" : feature_group_9313843b69d6d01c0b33a14277ced273,
+                    "Draw Layer" : feature_group_8b125a46c08cf333cce2fd4c92f8abeb,
+                    "Isochrones" : feature_group_a264b6a07338f8f72ff999ee7c11e55b,
+                    "Cities" : feature_group_8db1e65fe215fbfd0b6d1b8c0edf636c,
                 },
             };
-            let layer_control_c1eb7f5dff2e65286476a8795438ba60 = L.control.layers(
-                layer_control_c1eb7f5dff2e65286476a8795438ba60_layers.base_layers,
-                layer_control_c1eb7f5dff2e65286476a8795438ba60_layers.overlays,
+            let layer_control_34349b9e8c0867b388f2975f20172820 = L.control.layers(
+                layer_control_34349b9e8c0867b388f2975f20172820_layers.base_layers,
+                layer_control_34349b9e8c0867b388f2975f20172820_layers.overlays,
                 {
   "position": "topright",
   "collapsed": true,
   "autoZIndex": true,
 }
-            ).addTo(map_80eb9082f95f2ef0f4eb923a6d89cfe8);
+            ).addTo(map_c4dc071efeedecd483a110170acec2fe);
 
         
     
@@ -802,26 +731,26 @@
               draw: {"circle": {"feet": false, "metric": false, "nauticalmiles": false, "shapeOptions": {}, "showRadius": true}, "polygon": {"feet": false, "metric": false, "nauticalmiles": false, "showArea": true}, "polyline": {"feet": false, "metric": false, "nauticalmiles": false, "showLength": true}, "rectangle": {"feet": false, "metric": false, "nauticalmiles": false, "showArea": true}},
               edit: {"featureGroup": "editLayer"},
             }
-                var drawnItems_draw_control_b1ab349e709c5cf2f4207e5cf29e4ec2 =
-                    feature_group_10f6be4724a7f3c98a926e929a4a5f0d;
+                var drawnItems_draw_control_17bc5b203ae5bd33378893ce49d72071 =
+                    feature_group_8b125a46c08cf333cce2fd4c92f8abeb;
 
-            options.edit.featureGroup = drawnItems_draw_control_b1ab349e709c5cf2f4207e5cf29e4ec2;
-            var draw_control_b1ab349e709c5cf2f4207e5cf29e4ec2 = new L.Control.Draw(
+            options.edit.featureGroup = drawnItems_draw_control_17bc5b203ae5bd33378893ce49d72071;
+            var draw_control_17bc5b203ae5bd33378893ce49d72071 = new L.Control.Draw(
                 options
-            ).addTo( map_80eb9082f95f2ef0f4eb923a6d89cfe8 );
-            map_80eb9082f95f2ef0f4eb923a6d89cfe8.on(L.Draw.Event.CREATED, function(e) {
+            ).addTo( map_c4dc071efeedecd483a110170acec2fe );
+            map_c4dc071efeedecd483a110170acec2fe.on(L.Draw.Event.CREATED, function(e) {
                 var layer = e.layer,
                     type = e.layerType;
                 var coords = JSON.stringify(layer.toGeoJSON());
-                drawnItems_draw_control_b1ab349e709c5cf2f4207e5cf29e4ec2.addLayer(layer);
+                drawnItems_draw_control_17bc5b203ae5bd33378893ce49d72071.addLayer(layer);
             });
-            map_80eb9082f95f2ef0f4eb923a6d89cfe8.on('draw:created', function(e) {
-                drawnItems_draw_control_b1ab349e709c5cf2f4207e5cf29e4ec2.addLayer(e.layer);
+            map_c4dc071efeedecd483a110170acec2fe.on('draw:created', function(e) {
+                drawnItems_draw_control_17bc5b203ae5bd33378893ce49d72071.addLayer(e.layer);
             });
 
             
             document.getElementById('export').onclick = function(e) {
-                var data = drawnItems_draw_control_b1ab349e709c5cf2f4207e5cf29e4ec2.toGeoJSON();
+                var data = drawnItems_draw_control_17bc5b203ae5bd33378893ce49d72071.toGeoJSON();
                 var convertedData = 'text/json;charset=utf-8,'
                     + encodeURIComponent(JSON.stringify(data));
                 document.getElementById('export').setAttribute(
@@ -834,215 +763,258 @@
             
         
     
-      // Haversine formula
-      function haversineDistance(latlngs) {
-        const R = 6371000; // Radius of the Earth in meters
-        let totalDistance = 0;
+        const map = map_c4dc071efeedecd483a110170acec2fe;
+        /** This template calculates the distance and area of drawn shapes using the Haversine formula
+ *  and displays the results in tooltips. It also handles the conversion of units to miles and acres.
+ *  This is done Because L.GeometryUtil.geodesicLength() and .length are not available in Foliums Leaflet implementation
+ *  Conversion factors: multiply by these to convert to desired units
+ *  meters to miles = 1 / 1609.34 ≈ 0.000621371
+ *  m² (sq meters) to acres = 1 / 4046.8564224 ≈ 0.000247105
+ *  Reference: https://en.wikipedia.org/wiki/Haversine_formula
+ **/
+// Haversine formula
+function haversineDistance(latlngs) {
+  const R = 6371000; // Radius of the Earth in meters
+  let totalDistance = 0;
 
-        for (let i = 0; i < latlngs.length - 1; i++) {
-            const [lat1, lon1] = [latlngs[i].lat, latlngs[i].lng];
-            const [lat2, lon2] = [latlngs[i + 1].lat, latlngs[i + 1].lng];
+  for (let i = 0; i < latlngs.length - 1; i++) {
+    const [lat1, lon1] = [latlngs[i].lat, latlngs[i].lng];
+    const [lat2, lon2] = [latlngs[i + 1].lat, latlngs[i + 1].lng];
 
-            const dLat = (lat2 - lat1) * Math.PI / 180;
-            const dLon = (lon2 - lon1) * Math.PI / 180;
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
 
-            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
 
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            totalDistance += R * c;
-        }
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    totalDistance += R * c;
+  }
 
-        return totalDistance; // Distance in meters
+  return totalDistance; // Distance in meters
+}
+
+map.on(L.Draw.Event.CREATED, function (e) {
+  const layer = e.layer,
+    type = e.layerType;
+
+  if (type === 'polyline') {
+    // Calculate and display length in miles using haversineDistance function
+    const latlngs = layer.getLatLngs();
+    const length = haversineDistance(latlngs);
+    const lengthInMiles = (length * 0.000621371).toFixed(2); // Convert meters to miles
+    layer
+      .bindTooltip(`Length: ${lengthInMiles} miles`, {
+        permanent: false,
+        direction: 'top',
+        offset: [0, -10],
+      })
+      .openTooltip();
+  } else if (type === 'polygon' || type === 'rectangle') {
+    // Calculate and display area in acres
+    const area = L.GeometryUtil.geodesicArea(layer.getLatLngs()[0]);
+    const areaInAcres = (area * 0.000247105).toFixed(2); // Convert m² to acres
+    layer.bindTooltip(`Area: ${areaInAcres} acres`, {
+      permanent: false,
+      direction: 'top',
+      offset: [0, -10],
+    });
+  } else if (type === 'circle') {
+    // Calculate and display radius in miles
+    const radiusInMiles = (layer.getRadius() * 0.000621371).toFixed(2);
+    layer.bindTooltip(`Radius: ${radiusInMiles} miles`, {
+      permanent: false,
+      direction: 'top',
+      offset: [0, -10],
+    });
+  } else if (type === 'marker') {
+    // Display coordinates for markers
+    const lat = layer.getLatLng().lat.toFixed(6);
+    const lng = layer.getLatLng().lng.toFixed(6);
+    layer.bindTooltip(`Coordinates: (${lat}, ${lng})`, {
+      permanent: false,
+      direction: 'top',
+      offset: [0, 0],
+    });
+  }
+
+  // Add the layer to the drawing layer
+  map.addLayer(layer);
+});
+
+/** This template adds a button to the map that allows users to generate isochrones by clicking on the map.
+ * It also handles the display of tooltips with latitude and longitude coordinates.
+ * The button is styled and positioned on the map, and it includes functionality to disable marker popups
+ * and tooltips while the isochrone mode is active.
+ * The script also includes error handling for the isochrone generation process.
+ * The button is removed when the Escape key is pressed, and the tooltip is removed after the map is clicked.
+ **/
+
+// Initialize Layer Control to dynamically add layers
+let isIsochroneMode = false; // Flag to track isochrone mode
+let layerControl = null; // Do not add layer control initially
+
+// Add a custom button to the map
+const button = L.control({ position: 'topright' });
+button.onAdd = function (map) {
+  const div = L.DomUtil.create(
+    'div',
+    'leaflet-bar leaflet-control leaflet-control-custom'
+  );
+  div.innerHTML =
+    '<button id="isochrone-btn" style="background-color: white; border: none; padding: 5px; cursor: pointer;">Add Isochrone</button>';
+  div.style.backgroundColor = 'white';
+  div.style.width = 'auto';
+  div.style.height = 'auto';
+  return div;
+};
+button.addTo(map);
+
+// Handle button click
+document
+  .getElementById('isochrone-btn')
+  .addEventListener('click', function (event) {
+    event.stopPropagation(); // Prevent the button click from propagating to the map
+    console.log('Add Isochrone button clicked');
+
+    isIsochroneMode = true; // Enable isochrone mode
+
+    // Disable marker popups and tooltips
+    map.eachLayer(function (layer) {
+      if (layer instanceof L.Marker) {
+        layer.off('click'); // Disable marker click events
       }
-
-    map_80eb9082f95f2ef0f4eb923a6d89cfe8.on(L.Draw.Event.CREATED, function(e){
-        const layer = e.layer,
-              type = e.layerType;
-
-        if (type === 'polyline') {
-            // Calculate and display length in miles using haversineDistance function
-            const latlngs = layer.getLatLngs();
-            const length = haversineDistance(latlngs);
-            const lengthInMiles = (length * 0.000621371).toFixed(2);  // Convert meters to miles
-            layer.bindTooltip(`Length: ${lengthInMiles} miles`, {
-                permanent: false,
-                direction: 'top',
-                offset: [0, -10]
-            }).openTooltip();
-        } else if (type === 'polygon' || type === 'rectangle') {
-            // Calculate and display area in acres
-            const area = L.GeometryUtil.geodesicArea(layer.getLatLngs()[0]);
-            const areaInAcres = (area * 0.000247105).toFixed(2);  // Convert m² to acres
-            layer.bindTooltip(`Area: ${areaInAcres} acres`, {
-                permanent: false,
-                direction: 'top',
-                offset: [0, -10]
-            });
-        } else if (type === 'circle') {
-            // Calculate and display radius in miles
-            const radiusInMiles = (layer.getRadius() * 0.000621371).toFixed(2);
-            layer.bindTooltip(`Radius: ${radiusInMiles} miles`, {
-                permanent: false,
-                direction: 'top',
-                offset: [0, -10]
-            });
-        } else if (type === 'marker') {
-            // Display coordinates for markers
-            const lat = layer.getLatLng().lat.toFixed(6);
-            const lng = layer.getLatLng().lng.toFixed(6);
-            layer.bindTooltip(`Coordinates: (${lat}, ${lng})`, {
-                permanent: false,
-                direction: 'top',
-                offset: [0, 0]
-            });
-        }
-
-        // Add the layer to the drawing layer
-        map_80eb9082f95f2ef0f4eb923a6d89cfe8.addLayer(layer);
     });
 
-    
-    
-        // Initialize Layer Control to dynamically add layers
-        let isIsochroneMode = false; // Flag to track isochrone mode
-        let layerControl = null; // Do not add layer control initially
+    let tooltip = L.tooltip({
+      permanent: false,
+      direction: 'right',
+      offset: [12, 0],
+    });
 
-        // Add a custom button to the map
-        const button = L.control({ position: 'topright' });
-        button.onAdd = function (map) {
-          const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-          div.innerHTML = '<button id="isochrone-btn" style="background-color: white; border: none; padding: 5px; cursor: pointer;">Add Isochrone</button>';
-          div.style.backgroundColor = 'white';
-          div.style.width = 'auto';
-          div.style.height = 'auto';
-          return div;
-        };
-        button.addTo(map_80eb9082f95f2ef0f4eb923a6d89cfe8);
+    // Add a mousemove listener to the map
+    function onMouseMove(e) {
+      const lat = e.latlng.lat.toFixed(6);
+      const lng = e.latlng.lng.toFixed(6);
+      tooltip
+        .setLatLng(e.latlng)
+        .setContent(`Lat: ${lat}, Lng: ${lng}<br>Click Here`)
+        .addTo(map);
+    }
 
-        // Handle button click
-        document.getElementById('isochrone-btn').addEventListener('click', function (event) {
-          event.stopPropagation(); // Prevent the button click from propagating to the map
-          console.log('Add Isochrone button clicked');
+    map.on('mousemove', onMouseMove);
 
-          isIsochroneMode = true; // Enable isochrone mode
+    // Enable map click listener
+    function onMapClick(e) {
+      const lat = e.latlng.lat;
+      const lng = e.latlng.lng;
 
-          // Disable marker popups and tooltips
-          map_80eb9082f95f2ef0f4eb923a6d89cfe8.eachLayer(function (layer) {
-            if (layer instanceof L.Marker) {
-              layer.off('click'); // Disable marker click events
-            }
+      console.log(`Map clicked at latitude: ${lat}, longitude: ${lng}`);
+
+      // Create a new feature group for the circle
+      const isochroneLayer = L.featureGroup().addTo(map);
+      const inputName = prompt(
+        'Enter a name for the isochrone layer:',
+        'Isochrone'
+      );
+      const layerName = `${inputName} at (${lat.toFixed(6)}, ${lng.toFixed(
+        6
+      )})`;
+
+      // Add layer control to the map if it doesn't exist
+      if (!layerControl) {
+        layerControl = L.control
+          .layers(null, {}, { collapsed: false })
+          .addTo(map);
+        const layerControlName = prompt(
+          'Enter a name for the layer control:',
+          'User Generated Layers'
+        );
+        const title = document.createElement('div');
+        title.style =
+          'font-weight: bold; font-size: 14px; margin-bottom: 5px; border-bottom: 1px solid #ccc;';
+        title.innerHTML = layerControlName;
+        layerControl
+          .getContainer()
+          .insertBefore(title, layerControl.getContainer().firstChild);
+      }
+
+      // Add the new layer to the layer control
+      layerControl.addOverlay(isochroneLayer, layerName);
+
+      // Call your backend API to generate the isochrone
+      fetch(`/generate_isochrone?lat=${lat}&lng=${lng}&time=1800`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Server error: ${response.statusText}`);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (!data || !data.features) {
+            throw new Error('Invalid GeoJSON object.');
+          }
+          const isochronePolygon = L.geoJSON(data, {
+            style: {
+              color: 'blue',
+              weight: 2,
+              fillOpacity: 0.4,
+            },
           });
 
-          let tooltip = L.tooltip({
+          isochronePolygon.addTo(isochroneLayer);
+          // isochroneLayer.addTo(map);
+          isochronePolygon.bindTooltip(`Isochrone for ${layerName}`, {
             permanent: false,
-            direction: 'right',
-            offset: [12, 0]
+            direction: 'top',
+            offset: [0, -10],
           });
-
-          // Add a mousemove listener to the map
-          function onMouseMove(e) {
-            const lat = e.latlng.lat.toFixed(6);
-            const lng = e.latlng.lng.toFixed(6);
-            tooltip.setLatLng(e.latlng).setContent(`Lat: ${lat}, Lng: ${lng}<br>Click Here`).addTo(map_80eb9082f95f2ef0f4eb923a6d89cfe8);
-          }
-
-          map_80eb9082f95f2ef0f4eb923a6d89cfe8.on('mousemove', onMouseMove);
-
-          // Enable map click listener
-          function onMapClick(e) {
-            const lat = e.latlng.lat;
-            const lng = e.latlng.lng;
-
-            console.log(`Map clicked at latitude: ${lat}, longitude: ${lng}`);
-
-            // Create a new feature group for the circle
-            const isochroneLayer = L.featureGroup().addTo(map_80eb9082f95f2ef0f4eb923a6d89cfe8);
-            const inputName = prompt("Enter a name for the isochrone layer:", "Isochrone");
-            const layerName = `${inputName} at (${lat.toFixed(6)}, ${lng.toFixed(6)})`;
-
-            // Add layer control to the map if it doesn't exist
-            if (!layerControl) {
-              layerControl = L.control.layers(null, {}, { collapsed: false }).addTo(map_80eb9082f95f2ef0f4eb923a6d89cfe8);
-              const layerControlName = prompt("Enter a name for the layer control:", "User Generated Layers");
-              const title = document.createElement('div');
-              title.style = 'font-weight: bold; font-size: 14px; margin-bottom: 5px; border-bottom: 1px solid #ccc;';
-              title.innerHTML = layerControlName;
-              layerControl.getContainer().insertBefore(title, layerControl.getContainer().firstChild);
-            }
-
-            // Add the new layer to the layer control
-            layerControl.addOverlay(isochroneLayer, layerName);
-
-            // Call your backend API to generate the isochrone
-            fetch(`/generate_isochrone?lat=${lat}&lng=${lng}&time=1800`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Server error: ${response.statusText}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (!data || !data.features) {
-                        throw new Error("Invalid GeoJSON object.");
-                    }
-                    const isochronePolygon = L.geoJSON(data, {
-                        style: {
-                            color: 'blue',
-                            weight: 2,
-                            fillOpacity: 0.4
-                        }
-                    });
-
-                    isochronePolygon.addTo(isochroneLayer);
-                    // isochroneLayer.addTo(map_80eb9082f95f2ef0f4eb923a6d89cfe8);
-                    isochronePolygon.bindTooltip(`Isochrone for ${layerName}`, {
-                        permanent: false,
-                        direction: 'top',
-                        offset: [0, -10]
-                    });
-                })
-                .catch(error => {
-                    console.error("Error generating isochrone:", error);
-                    alert(`Failed to generate isochrone: ${error.message}`);
-                });
-
-            // Remove the tooltip and mousemove listener after the map is clicked
-            cleanup();
-          }
-
-          map_80eb9082f95f2ef0f4eb923a6d89cfe8.once('click', onMapClick);
-
-          // End the event when the Escape key is pressed
-          function onKeyDown(e) {
-            if (e.key === 'Escape') {
-              console.log('Escape key pressed, ending isochrone event');
-              cleanup();
-            }
-          }
-
-          document.addEventListener('keydown', onKeyDown);
-
-          // Cleanup function to remove all listeners and the tooltip
-          function cleanup() {
-            isIsochroneMode = false; // Disable isochrone mode
-
-            // Re-enable marker popups and tooltips
-            map_80eb9082f95f2ef0f4eb923a6d89cfe8.eachLayer(function (layer) {
-              if (layer instanceof L.Marker) {
-                layer.on('click', function (e) {
-                  layer.openPopup(); // Re-enable marker click events
-                });
-              }
-            });
-
-            map_80eb9082f95f2ef0f4eb923a6d89cfe8.off('mousemove', onMouseMove);
-            map_80eb9082f95f2ef0f4eb923a6d89cfe8.off('click', onMapClick);
-            map_80eb9082f95f2ef0f4eb923a6d89cfe8.removeLayer(tooltip);
-            document.removeEventListener('keydown', onKeyDown);
-          }
+        })
+        .catch((error) => {
+          console.error('Error generating isochrone:', error);
+          alert(`Failed to generate isochrone: ${error.message}`);
         });
-    
+
+      // Remove the tooltip and mousemove listener after the map is clicked
+      cleanup();
+    }
+
+    map.once('click', onMapClick);
+
+    // End the event when the Escape key is pressed
+    function onKeyDown(e) {
+      if (e.key === 'Escape') {
+        console.log('Escape key pressed, ending isochrone event');
+        cleanup();
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown);
+
+    // Cleanup function to remove all listeners and the tooltip
+    function cleanup() {
+      isIsochroneMode = false; // Disable isochrone mode
+
+      // Re-enable marker popups and tooltips
+      map.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+          layer.on('click', function (e) {
+            layer.openPopup(); // Re-enable marker click events
+          });
+        }
+      });
+
+      map.off('mousemove', onMouseMove);
+      map.off('click', onMapClick);
+      map.removeLayer(tooltip);
+      document.removeEventListener('keydown', onKeyDown);
+    }
+  });
+
+        
 </script>
 </html>

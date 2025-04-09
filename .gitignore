@@ -15,8 +15,9 @@ build/
 .env
 
 # Data files
-data/
-maps/
+data/**/geocoded*
+data/**/*_*
+maps/test*
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
@@ -32,4 +33,4 @@ Thumbs.db
 *.swo
 
 # Certificates
-*.pem
+certs/
