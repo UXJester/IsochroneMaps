@@ -1,24 +1,37 @@
 # Standard library imports
 import os
+import sys
 from math import atan2, cos, degrees, radians, sin, sqrt
+import re
 
 # Third-party imports
 import folium
 import geojson
 import pandas as pd
+from folium import MacroElement
 from folium.plugins import Draw
 from jinja2 import Template
+from jsmin import jsmin
+from csscompressor import compress
+import htmlmin
+
+
+# Add the root directory to the Python path
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+# Local application imports
+from config import IMAGES, ISOCHRONES, LOCATIONS, MAPS
 
 # Load isochrone data from isochrones.geojson
-if not os.path.exists("data/isochrones/isochrones.geojson"):
+if not os.path.exists(f"{ISOCHRONES}/isochrones.geojson"):
     raise FileNotFoundError("The file 'isochrones.geojson' was not found.")
-with open("data/isochrones/isochrones.geojson") as f:
+with open(f"{ISOCHRONES}/isochrones.geojson") as f:
     isochrones_data = geojson.load(f)
 
 # Load Cities Data
-if not os.path.exists("data/location/geocoded_cities.csv"):
+if not os.path.exists(f"{LOCATIONS}/geocoded_cities.csv"):
     raise FileNotFoundError("The file 'cities.csv' was not found.")
-cities_df = pd.read_csv("data/location/geocoded_cities.csv")
+cities_df = pd.read_csv(f"{LOCATIONS}/geocoded_cities.csv")
 if cities_df.empty:
     raise ValueError("The cities.csv file is empty.")
 
@@ -127,25 +140,18 @@ def create_map(include_poi=False):
             popup=folium.Popup(f"<b>{city_name}</b>", max_width=300),
             icon=folium.Icon(color="red", icon="tower"),
             tooltip=folium.Tooltip(
-                f"{city_name}", sticky=True, direction="top", show=True
-            ),
-        ).add_to(cities_layer)
-
-        # Add a custom label
-        folium.Marker(
-            location=[latitude, longitude],
-            icon=folium.DivIcon(
-                html=f"""
-                <div style="background-color: black; font-size: 9px; color: white; text-align: center; width: max-content; border-radius: 4px; padding: 2px 4px; position: absolute; top: -50px; left: -125%;">
-                    <b>{city_name}</b>
-                </div>
-                """
+                f"{city_name}",
+                permanent=True,
+                sticky=False,
+                direction="top",
+                offset=(0, -32),
+                show=True,
             ),
         ).add_to(cities_layer)
 
     # Add poi markers (if enabled)
     if include_poi:
-        geocoded_file = "data/location/geocoded_poi.csv"
+        geocoded_file = f"{LOCATIONS}/geocoded_poi.csv"
         if not os.path.exists(geocoded_file):
             raise FileNotFoundError(f"The file '{geocoded_file}' was not found.")
         poi_df = pd.read_csv(geocoded_file)
@@ -214,110 +220,97 @@ def create_map(include_poi=False):
         },
     ).add_to(m)
 
-    # Add a custom script to configure the Draw plugin
-    el = folium.MacroElement().add_to(m)
+    # Read the contents of map_config.js
+    js_file_path = os.path.join(os.path.dirname(__file__), "static/js/map_config.js")
+    with open(js_file_path, "r") as js_file:
+        map_config_js = js_file.read()
+        minified_js = jsmin(map_config_js)
 
-    """
-    This template calculates the distance and area of drawn shapes using the Haversine formula
-    and displays the results in tooltips. It also handles the conversion of units to miles and acres.
-    This is done Because L.GeometryUtil.geodesicLength() and .length are not available in Foliums Leaflet implementation
-    Conversion factors: multiply by these to convert to desired units
-    meters to miles = 1 / 1609.34 ≈ 0.000621371
-    m² (sq meters) to acres = 1 / 4046.8564224 ≈ 0.000247105
-    Reference: https://en.wikipedia.org/wiki/Haversine_formula
-    """
+    # Add a custom script to configure the map
+    el = MacroElement().add_to(m)
     el._template = Template(
+        f"""
+        {{% macro script(this, kwargs) %}}
+        const map = {m.get_name()};
+        {map_config_js}
+        {{% endmacro %}}
         """
-    {% macro script(this, kwargs) %}
-      // Haversine formula
-      function haversineDistance(latlngs) {
-        const R = 6371000; // Radius of the Earth in meters
-        let totalDistance = 0;
-
-        for (let i = 0; i < latlngs.length - 1; i++) {
-            const [lat1, lon1] = [latlngs[i].lat, latlngs[i].lng];
-            const [lat2, lon2] = [latlngs[i + 1].lat, latlngs[i + 1].lng];
-
-            const dLat = (lat2 - lat1) * Math.PI / 180;
-            const dLon = (lon2 - lon1) * Math.PI / 180;
-
-            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
-
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            totalDistance += R * c;
-        }
-
-        return totalDistance; // Distance in meters
-      }
-
-    {{ this._parent.get_name() }}.on(L.Draw.Event.CREATED, function(e){
-        const layer = e.layer,
-              type = e.layerType;
-
-        if (type === 'polyline') {
-            // Calculate and display length in miles using haversineDistance function
-            const latlngs = layer.getLatLngs();
-            const length = haversineDistance(latlngs);
-            const lengthInMiles = (length * 0.000621371).toFixed(2);  // Convert meters to miles
-            layer.bindTooltip(`Length: ${lengthInMiles} miles`, {
-                permanent: false,
-                direction: 'top',
-                offset: [0, -10]
-            }).openTooltip();
-        } else if (type === 'polygon' || type === 'rectangle') {
-            // Calculate and display area in acres
-            const area = L.GeometryUtil.geodesicArea(layer.getLatLngs()[0]);
-            const areaInAcres = (area * 0.000247105).toFixed(2);  // Convert m² to acres
-            layer.bindTooltip(`Area: ${areaInAcres} acres`, {
-                permanent: false,
-                direction: 'top',
-                offset: [0, -10]
-            });
-        } else if (type === 'circle') {
-            // Calculate and display radius in miles
-            const radiusInMiles = (layer.getRadius() * 0.000621371).toFixed(2);
-            layer.bindTooltip(`Radius: ${radiusInMiles} miles`, {
-                permanent: false,
-                direction: 'top',
-                offset: [0, -10]
-            });
-        } else if (type === 'marker') {
-            // Display coordinates for markers
-            const lat = layer.getLatLng().lat.toFixed(6);
-            const lng = layer.getLatLng().lng.toFixed(6);
-            layer.bindTooltip(`Coordinates: (${lat}, ${lng})`, {
-                permanent: false,
-                direction: 'top',
-                offset: [0, 0]
-            });
-        }
-
-        // Add the layer to the drawing layer
-        {{ this._parent.get_name() }}.addLayer(layer);
-    });
-
-    {% endmacro %}
-    """
     )
 
-    # TODO: Add grouped or tree layer control for better organization
+    # Add custom CSS for the map
+    css_file_path = os.path.join(os.path.dirname(__file__), "static/css/map_styles.css")
+    with open(css_file_path, "r") as css_file:
+        map_css = css_file.read()
+        minified_css = compress(map_css)
+
+    styles = MacroElement().add_to(m)
+    styles._template = Template(
+        f"""
+        {{% macro header(this, kwargs) %}}
+        <style>
+          {map_css}
+        </style>
+        {{% endmacro %}}
+        """
+    )
 
     return m
 
 
+def minify_html(file_path):
+    with open(file_path, "r") as file:
+        html_content = file.read()
+
+    # Minify <script> tags
+    def minify_script(match):
+        script_content = match.group(1)
+        minified_script = jsmin(script_content, quote_chars="'\"")
+        return f"<script>{minified_script}</script>"
+
+    html_content = re.sub(
+        r"<script>(.*?)</script>", minify_script, html_content, flags=re.DOTALL
+    )
+
+    # Minify <style> tags
+    def minify_style(match):
+        style_content = match.group(1)
+        minified_style = compress(style_content)
+        return f"<style>{minified_style}</style>"
+
+    html_content = re.sub(
+        r"<style>(.*?)</style>", minify_style, html_content, flags=re.DOTALL
+    )
+
+    # Minify the entire HTML, but avoid removing spaces in strings
+    minified_html = htmlmin.minify(
+        html_content,
+        remove_comments=True,
+        remove_empty_space=True,
+        reduce_boolean_attributes=True,
+        remove_optional_attribute_quotes=False,
+    )
+
+    with open(file_path, "w") as file:
+        file.write(minified_html)
+
+
 # Generate Maps using create_map function. Additional maps can be created by calling the function with different parameters
 # Create maps directory if it doesn't exist
-if not os.path.exists("maps"):
-    os.makedirs("maps")
+if not os.path.exists(MAPS):
+    os.makedirs(MAPS)
+
+# Generate test map to test JS generated by maps.py
+# map_without_members = create_map(include_members=False)
+# map_without_members.save(f"{MAPS}/test_gen.html")
+# print("Map without members saved as 'test_gen.html'.")
 
 # Generate the map without Points of Interest
 map_without_poi = create_map(include_poi=False)
-map_without_poi.save("maps/city_isochrone_map.html")
+map_without_poi.save(f"{MAPS}/city_isochrone_map.html")
 print("Map without poi saved as 'city_isochrone_map.html'.")
 
 # Generate the map with Points of Interest
 map_with_poi = create_map(include_poi=True)
-map_with_poi.save("maps/poi_map.html")
+map_with_poi.save(f"{MAPS}/poi_map.html")
+map_with_poi.save("docs/poi_map.html")
 print("Map with Points of Interest saved as 'poi_map.html'.")

@@ -1,11 +1,18 @@
 # Standard library imports
 import os
 import ssl
+import sys
 
 # Third-party imports
 import certifi
 import pandas as pd
 from geopy.geocoders import Nominatim
+
+# Add the root directory to the Python path
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+
+# Local application imports
+from config import LOCATIONS
 
 # Create a secure SSL context
 ssl_context = ssl.create_default_context(cafile=certifi.where())
@@ -155,8 +162,8 @@ def process_geocoding(df, output_file, columns_to_geocode):
 
 
 # Process cities.csv
-cities_file = "data/location/cities.csv"
-cities_output = "data/location/geocoded_cities.csv"
+cities_file = f"{LOCATIONS}/cities.csv"
+cities_output = f"{LOCATIONS}/geocoded_cities.csv"
 cities_df = load_data(cities_file, dtype={"Zip": str})
 process_geocoding(
     cities_df,
@@ -169,8 +176,8 @@ process_geocoding(
 )
 
 # Process poi.csv
-poi_file = "data/location/poi.csv"
-poi_output = "data/location/geocoded_poi.csv"
+poi_file = f"{LOCATIONS}/poi.csv"
+poi_output = f"{LOCATIONS}/geocoded_poi.csv"
 poi_df = load_data(poi_file, dtype={"Zip": str})
 process_geocoding(
     poi_df,
